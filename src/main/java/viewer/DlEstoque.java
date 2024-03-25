@@ -4,6 +4,8 @@
  */
 package viewer;
 
+import control.GUIManager;
+
 /**
  *
  * @author correia
@@ -15,6 +17,8 @@ public class DlEstoque extends javax.swing.JDialog {
      */
     public DlEstoque(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.setSize(757, 621);
+        this.setResizable(false);
         initComponents();
     }
 
@@ -30,11 +34,13 @@ public class DlEstoque extends javax.swing.JDialog {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        jLabel13 = new javax.swing.JLabel();
+        retornarMenuInicial = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        adicionarPedido = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        adicionarProduto = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -46,16 +52,23 @@ public class DlEstoque extends javax.swing.JDialog {
         jMenuBar1.add(jMenu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel13.setIcon(new javax.swing.ImageIcon("/home/correia/NetBeansProjects/Mercearia/src/main/resources/imagens/icons8-home-25.png")); // NOI18N
-        jLabel13.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        retornarMenuInicial.setIcon(new javax.swing.ImageIcon("/home/correia/NetBeansProjects/Mercearia/src/main/resources/imagens/icons8-home-25.png")); // NOI18N
+        retornarMenuInicial.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        retornarMenuInicial.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        retornarMenuInicial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                retornarMenuInicialMouseClicked(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Foto", "Estoque", "Produto", "Quantidade", "Compra Val. ", "Venda Val. ", "Entrega Sit."
+                "Foto", "Estoque", "Produto", "Quantidade", "Compra Val. ", "Venda Val. (Uni.)", "Entrega Sit."
             }
         ) {
             Class[] types = new Class [] {
@@ -68,25 +81,58 @@ public class DlEstoque extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        adicionarPedido.setBackground(new java.awt.Color(255, 255, 255));
+        adicionarPedido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        adicionarPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        adicionarPedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adicionarPedidoMouseClicked(evt);
+            }
+        });
 
         jLabel1.setBackground(new java.awt.Color(153, 255, 153));
         jLabel1.setIcon(new javax.swing.ImageIcon("/home/correia/NetBeansProjects/Mercearia/src/main/resources/imagens/icons8-plus-20.png")); // NOI18N
         jLabel1.setText("Pedido");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout adicionarPedidoLayout = new javax.swing.GroupLayout(adicionarPedido);
+        adicionarPedido.setLayout(adicionarPedidoLayout);
+        adicionarPedidoLayout.setHorizontalGroup(
+            adicionarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(adicionarPedidoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+        adicionarPedidoLayout.setVerticalGroup(
+            adicionarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+        );
+
+        adicionarProduto.setBackground(new java.awt.Color(255, 255, 255));
+        adicionarProduto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        adicionarProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        adicionarProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adicionarProdutoMouseClicked(evt);
+            }
+        });
+
+        jLabel2.setBackground(new java.awt.Color(153, 255, 153));
+        jLabel2.setIcon(new javax.swing.ImageIcon("/home/correia/NetBeansProjects/Mercearia/src/main/resources/imagens/icons8-plus-20.png")); // NOI18N
+        jLabel2.setText("Novo Produto");
+
+        javax.swing.GroupLayout adicionarProdutoLayout = new javax.swing.GroupLayout(adicionarProduto);
+        adicionarProduto.setLayout(adicionarProdutoLayout);
+        adicionarProdutoLayout.setHorizontalGroup(
+            adicionarProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(adicionarProdutoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
                 .addContainerGap(22, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+        adicionarProdutoLayout.setVerticalGroup(
+            adicionarProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
         );
 
         jMenu3.setText("File");
@@ -104,26 +150,51 @@ public class DlEstoque extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel13)
+                        .addComponent(retornarMenuInicial)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(adicionarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(adicionarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(retornarMenuInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(adicionarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(adicionarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void retornarMenuInicialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_retornarMenuInicialMouseClicked
+        // TODO add your handling code here:
+        GUIManager.getInstance().openWindowStartMenu();
+        this.setVisible(false);
+    }//GEN-LAST:event_retornarMenuInicialMouseClicked
+
+    private void adicionarProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarProdutoMouseClicked
+        // TODO add your handling code here:
+        GUIManager.getInstance().openWindowProduto();
+    }//GEN-LAST:event_adicionarProdutoMouseClicked
+
+    private void adicionarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarPedidoMouseClicked
+        // TODO add your handling code here:
+        GUIManager.getInstance().openWindowPedido();
+    }//GEN-LAST:event_adicionarPedidoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -168,16 +239,18 @@ public class DlEstoque extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel adicionarPedido;
+    private javax.swing.JPanel adicionarProduto;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel retornarMenuInicial;
     // End of variables declaration//GEN-END:variables
 }

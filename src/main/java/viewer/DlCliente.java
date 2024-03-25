@@ -4,6 +4,8 @@
  */
 package viewer;
 
+import control.GUIManager;
+
 /**
  *
  * @author correia
@@ -15,6 +17,8 @@ public class DlCliente extends javax.swing.JDialog {
      */
     public DlCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.setSize(1065, 502);
+        this.setResizable(false);
         initComponents();
     }
 
@@ -59,9 +63,9 @@ public class DlCliente extends javax.swing.JDialog {
         jTextField6 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        fornecedorRegistrar = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        retornarMenuInicial = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaCliente = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -86,8 +90,6 @@ public class DlCliente extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTable1);
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("CPF");
 
@@ -150,10 +152,21 @@ public class DlCliente extends javax.swing.JDialog {
 
         jLabel11.setText("Cidade");
 
-        jButton3.setText("Fornecedor");
+        fornecedorRegistrar.setText("Fornecedor");
+        fornecedorRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fornecedorRegistrarActionPerformed(evt);
+            }
+        });
 
-        jLabel13.setIcon(new javax.swing.ImageIcon("/home/correia/NetBeansProjects/Mercearia/src/main/resources/imagens/icons8-home-25.png")); // NOI18N
-        jLabel13.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        retornarMenuInicial.setIcon(new javax.swing.ImageIcon("/home/correia/NetBeansProjects/Mercearia/src/main/resources/imagens/icons8-home-25.png")); // NOI18N
+        retornarMenuInicial.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        retornarMenuInicial.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        retornarMenuInicial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                retornarMenuInicialMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -182,7 +195,7 @@ public class DlCliente extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel13))
+                                    .addComponent(retornarMenuInicial))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(55, 55, 55)
@@ -191,7 +204,7 @@ public class DlCliente extends javax.swing.JDialog {
                                         .addGap(39, 39, 39)
                                         .addComponent(jLabel12)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton3)))))
+                                        .addComponent(fornecedorRegistrar)))))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,12 +246,10 @@ public class DlCliente extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(0, 0, 0)
-                        .addComponent(jLabel13))
-                    .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                    .addComponent(jLabel12)
+                    .addComponent(fornecedorRegistrar)
+                    .addComponent(retornarMenuInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -347,6 +358,16 @@ public class DlCliente extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void retornarMenuInicialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_retornarMenuInicialMouseClicked
+        // TODO add your handling code here:
+        GUIManager.getInstance().openWindowStartMenu();
+    }//GEN-LAST:event_retornarMenuInicialMouseClicked
+
+    private void fornecedorRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fornecedorRegistrarActionPerformed
+        // TODO add your handling code here:
+        //ALTERAR OS CAMPOS DESSA JANELA PARA FORNECEDOR
+    }//GEN-LAST:event_fornecedorRegistrarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -390,9 +411,9 @@ public class DlCliente extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton fornecedorRegistrar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JFormattedTextField jFormattedTextField1;
@@ -402,7 +423,6 @@ public class DlCliente extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -428,6 +448,7 @@ public class DlCliente extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JLabel retornarMenuInicial;
     private javax.swing.JTable tabelaCliente;
     private javax.swing.ButtonGroup tipoCliente;
     // End of variables declaration//GEN-END:variables

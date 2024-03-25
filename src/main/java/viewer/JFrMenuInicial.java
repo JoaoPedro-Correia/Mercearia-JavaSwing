@@ -5,6 +5,7 @@
 package viewer;
 
 import javax.swing.JOptionPane;
+import control.GUIManager;
 
 /**
  *
@@ -46,7 +47,6 @@ public class JFrMenuInicial extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 102));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -246,64 +246,29 @@ public class JFrMenuInicial extends javax.swing.JFrame {
 
     private void botaoVendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoVendasMouseClicked
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Clicou no botão Vendas");
-        //DlCliente janela = new DlCliente(this, true);
+        GUIManager.getInstance().openWindowVendas();
     }//GEN-LAST:event_botaoVendasMouseClicked
 
     private void botaoEstoqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoEstoqueMouseClicked
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Clicou no botão Estoque");
+        GUIManager.getInstance().openWindowEstoque();
     }//GEN-LAST:event_botaoEstoqueMouseClicked
 
     private void botaoCaixaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoCaixaMouseClicked
         // TODO add your handling code here:
+        GUIManager.getInstance().openWindowCaixa();
     }//GEN-LAST:event_botaoCaixaMouseClicked
 
     private void botaoClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoClienteMouseClicked
         // TODO add your handling code here:
+        GUIManager.getInstance().openWindowCliente();
     }//GEN-LAST:event_botaoClienteMouseClicked
 
     private void botaoNotaFiscalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoNotaFiscalMouseClicked
         // TODO add your handling code here:
+        GUIManager.getInstance().openWindowNotaFiscal();
     }//GEN-LAST:event_botaoNotaFiscalMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFrMenuInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFrMenuInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFrMenuInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFrMenuInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        //CONFIGURACAO DA JANELA
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFrMenuInicial().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botaoCaixa;
