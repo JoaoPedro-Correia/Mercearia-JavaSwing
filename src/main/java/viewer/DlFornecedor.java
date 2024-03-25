@@ -52,7 +52,6 @@ public class DlFornecedor extends javax.swing.JDialog {
         jTextField6 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        clienteRegistrar = new javax.swing.JButton();
         retornarMenuInicial = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaCliente = new javax.swing.JTable();
@@ -114,13 +113,6 @@ public class DlFornecedor extends javax.swing.JDialog {
         jLabel10.setText("Nº");
 
         jLabel11.setText("Cidade");
-
-        clienteRegistrar.setText("Cliente");
-        clienteRegistrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clienteRegistrarActionPerformed(evt);
-            }
-        });
 
         retornarMenuInicial.setIcon(new javax.swing.ImageIcon("/home/correia/NetBeansProjects/Mercearia/src/main/resources/imagens/icons8-home-25.png")); // NOI18N
         retornarMenuInicial.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -187,17 +179,14 @@ public class DlFornecedor extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(retornarMenuInicial)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(clienteRegistrar)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(clienteRegistrar)
-                    .addComponent(retornarMenuInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(retornarMenuInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -305,13 +294,9 @@ public class DlFornecedor extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
 
-    private void clienteRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clienteRegistrarActionPerformed
-        // TODO add your handling code here:
-        GUIManager.getInstance().openWindowCliente();
-    }//GEN-LAST:event_clienteRegistrarActionPerformed
-
     private void retornarMenuInicialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_retornarMenuInicialMouseClicked
         // TODO add your handling code here:
+        this.setVisible(false);
         GUIManager.getInstance().openWindowStartMenu();
     }//GEN-LAST:event_retornarMenuInicialMouseClicked
 
@@ -358,7 +343,6 @@ public class DlFornecedor extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton clienteRegistrar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JFormattedTextField jFormattedTextField1;

@@ -366,6 +366,8 @@ public class DlCliente extends javax.swing.JDialog {
     private void fornecedorRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fornecedorRegistrarActionPerformed
         // TODO add your handling code here:
         //ALTERAR OS CAMPOS DESSA JANELA PARA FORNECEDOR
+        GUIManager.getInstance().openWindowFornecedor();
+        this.setVisible(false);
     }//GEN-LAST:event_fornecedorRegistrarActionPerformed
 
     /**
