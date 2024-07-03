@@ -7,8 +7,12 @@ package control;
 import java.awt.Dialog;
 import java.awt.Frame;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import org.hibernate.HibernateException;
 import viewer.*;
 
 /**
@@ -22,14 +26,21 @@ public class GUIManager {
   private DlFornecedor dlFornecedor = null;
   private DlNotaFiscal dlNotaFiscal = null;
   private DlPedido dlPedido = null;
+  private DlCategoria dlCategoria=null;
   private DlProduto dlProduto = null;
   private DlVendas dlVendas = null;
-  private JFrMenuInicial jfMenu = null;
+  private JFrMenuInicial jfMenu = null; 
+  
+  private DomainManager doManager;
 
-  private static GUIManager instance = new GUIManager();
+  private static final GUIManager instance = new GUIManager();
 
-  public GUIManager() {
-
+  private GUIManager() {
+      try { 
+          doManager = new DomainManager();
+      } catch (ClassNotFoundException | HibernateException ex) {
+          JOptionPane.showMessageDialog(jfMenu, ex);
+      }
   }
 
   public static GUIManager getInstance() {
@@ -51,6 +62,9 @@ public class GUIManager {
     dlg.setLocation(100, 100);
     return dlg;
   }
+  public DomainManager getGerenciadorDominio() {
+    return doManager;       
+  }
 
   public void openWindowCaixa() {
     dlCaixa = (DlCaixa) openWindow(jfMenu, dlCaixa, DlCaixa.class);
@@ -60,6 +74,10 @@ public class GUIManager {
     dlCliente = (DlCliente) openWindow(jfMenu, dlCliente, DlCliente.class);
   }
 
+  public void openWindowCategoria() {
+    dlCategoria = (DlCategoria) openWindow(jfMenu, dlCategoria, DlCategoria.class);
+  }
+  
   public void openWindowEstoque() {
     dlEstoque = (DlEstoque) openWindow(jfMenu, dlEstoque, DlEstoque.class);
   }

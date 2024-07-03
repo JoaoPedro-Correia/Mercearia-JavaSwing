@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"> -->
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration">
+                                                                                             
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://172.17.0.2:5432/mercearia</property>
+    <property name="hibernate.connection.username">postgres</property>
+    <property name="hibernate.connection.password">Joaope14</property>
+    
+    <property name="hibernate.hbm2ddl.auto">update</property>   
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.format_sql">true</property>
+    
+    <mapping class="model.Cliente"></mapping>
+    <mapping class="model.Endereco"></mapping>
+    <mapping class="model.Produto"></mapping>
+    <mapping class="model.Caixa"></mapping>
+    <mapping class="model.Categoria"></mapping>
+    <mapping class="model.Estoque"></mapping>
+    <mapping class="model.EstoquePK"></mapping>
+    <mapping class="model.Fornecedor"></mapping>
+    <mapping class="model.ProdutoVenda"></mapping>
+    <mapping class="model.ProdutoVendaPK"></mapping>
+    <mapping class="model.Pagamento"></mapping>
+    <mapping class="model.Venda"></mapping>
+    
+ 
+  </session-factory>
+</hibernate-configuration>
