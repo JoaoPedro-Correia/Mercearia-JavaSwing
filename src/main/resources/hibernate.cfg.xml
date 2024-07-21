@@ -26,7 +26,5 @@
     <mapping class="model.ProdutoVendaPK"></mapping>
     <mapping class="model.Pagamento"></mapping>
     <mapping class="model.Venda"></mapping>
-    
- 
   </session-factory>
 </hibernate-configuration>

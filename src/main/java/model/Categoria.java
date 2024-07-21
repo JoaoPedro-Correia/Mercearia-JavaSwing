@@ -28,6 +28,8 @@ public class Categoria implements Serializable {
     
     @OneToMany ( mappedBy = "categoria" , fetch = FetchType.LAZY)
     private List<Produto> produtos;
+    
+    private String nome_categoria;
 
     public List<Produto> getProdutos() {
         return produtos;
@@ -37,11 +39,18 @@ public class Categoria implements Serializable {
         this.produtos = produtos;
     }
 
+    public Categoria(String nome_categoria) {
+        this.nome_categoria = nome_categoria;
+    }
+
+    public Categoria(Integer id, String nome_categoria) {
+        this.id = id;
+        this.nome_categoria = nome_categoria;
+    }
+
     public Categoria() {
     }
     
-    private String nome_categoria;
-
     public void setId(Integer id) {
         this.id = id;
     }

@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
+import org.postgresql.util.PSQLException;
 import viewer.*;
 
 /**
@@ -38,7 +39,7 @@ public class GUIManager {
   private GUIManager() {
       try { 
           doManager = new DomainManager();
-      } catch (ClassNotFoundException | HibernateException ex) {
+      } catch (ClassNotFoundException | HibernateException | PSQLException ex) {
           JOptionPane.showMessageDialog(jfMenu, ex);
       }
   }

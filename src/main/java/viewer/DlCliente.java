@@ -4,7 +4,6 @@
  */
 package viewer;
 
-import com.mysql.cj.xdevapi.Client;
 import control.ClienteAbstractTableModel;
 import control.FuncoesUteis;
 import control.GUIManager;
@@ -14,6 +13,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 import model.Endereco;
 
@@ -39,6 +39,7 @@ public class DlCliente extends javax.swing.JDialog {
         this.cliEndereco=null;
         this.clienteATM = new ClienteAbstractTableModel();
         tabelaCliente.setModel(clienteATM);
+        carregarDados();
     }
 
     /**
@@ -57,6 +58,9 @@ public class DlCliente extends javax.swing.JDialog {
         jComboBox2 = new javax.swing.JComboBox<>();
         tipoCliente = new javax.swing.ButtonGroup();
         jSeparator1 = new javax.swing.JSeparator();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        editar = new javax.swing.JMenuItem();
+        excluir = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -87,6 +91,7 @@ public class DlCliente extends javax.swing.JDialog {
         retornarMenuInicial = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaCliente = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -109,6 +114,31 @@ public class DlCliente extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTable1);
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        editar.setText("Editar");
+        editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(editar);
+
+        excluir.setText("Excluir");
+        excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(excluir);
+
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setText("CPF");
 
@@ -340,7 +370,26 @@ public class DlCliente extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
+        tabelaCliente.setComponentPopupMenu(jPopupMenu1);
         jScrollPane2.setViewportView(tabelaCliente);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 102));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 28, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 27, Short.MAX_VALUE)
+        );
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -358,16 +407,23 @@ public class DlCliente extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -402,15 +458,14 @@ public class DlCliente extends javax.swing.JDialog {
             if ( cliente == null ) {
                 // INSERIR
                 end = GUIManager.getInstance().getGerenciadorDominio().inserirEndereco(tipoEndereco, tipoBairro, tipoCidade, num);
-                Cliente cli = GUIManager.getInstance().getGerenciadorDominio().inserirFornecedor(tipoNome, tipoCpf, end, tipoSexo, tipoEmail, nasc, tipoCotato, tipoObs);
+                Cliente cli = GUIManager.getInstance().getGerenciadorDominio().inserirCliente(tipoNome, tipoCpf, end, tipoSexo, tipoEmail, nasc, tipoCotato, tipoObs);
                 clienteATM.adicionar(cli);
-                limparTela();
-                JOptionPane.showMessageDialog(this,"Cliente " + cli.getId()+ " inserido com sucesso.", "Cadastro Cliente", JOptionPane.INFORMATION_MESSAGE  );
             } else {
                 // ALTERAR
                 GUIManager.getInstance().getGerenciadorDominio().alterarEndereco(cliEndereco.getId(), tipoBairro, tipoBairro, tipoCidade, num);
                 GUIManager.getInstance().getGerenciadorDominio().alterarCliente(cliente.getId(),tipoNome, tipoCpf, end, tipoSexo, tipoEmail, nasc, tipoCotato, tipoObs);
-            }   
+            }
+            limparTela();
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this,"Erro nos dados. " + ex.getMessage(), "ERRO Cadastro Cliente", JOptionPane.ERROR_MESSAGE  );
         }
@@ -434,6 +489,34 @@ public class DlCliente extends javax.swing.JDialog {
         this.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowActivated
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+        // TODO add your handling code here:
+        int linha = tabelaCliente.getSelectedRow();
+        if(linha>=0){
+            int i;
+        }
+    }//GEN-LAST:event_editarActionPerformed
+
+    private void excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirActionPerformed
+        // TODO add your handling code here:
+        int linha = tabelaCliente.getSelectedRow();
+        if(linha>=0){
+            ((DefaultTableModel) tabelaCliente.getModel()).removeRow(linha);
+        }
+    }//GEN-LAST:event_excluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -504,14 +587,9 @@ public class DlCliente extends javax.swing.JDialog {
         contato.setText("");
     }
     
-    private void listarTodosClientes() {
-        List<Cliente> lista;
-        
-        lista = GUIManager.getInstance().getGerenciadorDominio().pesquisarCliente();   
-
-        if(lista != null){
-            clienteATM.setLista(lista);   
-        }
+    private void carregarDados(){
+        List<Cliente> list = GUIManager.getInstance().getGerenciadorDominio().pesquisarCliente();
+        clienteATM.adicionar(list);
     }
     
 
@@ -521,8 +599,10 @@ public class DlCliente extends javax.swing.JDialog {
     private javax.swing.JFormattedTextField contato;
     private javax.swing.JFormattedTextField cpf;
     private javax.swing.JFormattedTextField data;
+    private javax.swing.JMenuItem editar;
     private javax.swing.JTextField email;
     private javax.swing.JTextField endereco;
+    private javax.swing.JMenuItem excluir;
     private javax.swing.JButton fornecedorRegistrar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -545,6 +625,8 @@ public class DlCliente extends javax.swing.JDialog {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;

@@ -9,13 +9,13 @@ package dao;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.postgresql.util.PSQLException;
 
 /**
  *
  * @author 1547816
  */
 public class ConexaoHibernate {
-    
     private static final SessionFactory sessionFactory;
     
     static {

@@ -272,6 +272,7 @@ public class DlEstoque extends javax.swing.JDialog {
 
     private void adicionarProduto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarProduto1MouseClicked
         // TODO add your handling code here:
+        GUIManager.getInstance().openWindowProduto();
     }//GEN-LAST:event_adicionarProduto1MouseClicked
 
     /**

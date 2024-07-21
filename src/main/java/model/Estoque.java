@@ -6,7 +6,7 @@ package model;
 
 import dao.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;

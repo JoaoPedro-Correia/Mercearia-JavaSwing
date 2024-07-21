@@ -17,7 +17,7 @@ import org.hibernate.annotations.CollectionId;
  * @author correia
  */
 @Entity
-@Table(name = "produto_venda", schema = "mercearia")
+@Table(name = "produto_venda", schema = "public")
 public class ProdutoVenda implements Serializable {
     @EmbeddedId
     private ProdutoVendaPK produtovenda;
