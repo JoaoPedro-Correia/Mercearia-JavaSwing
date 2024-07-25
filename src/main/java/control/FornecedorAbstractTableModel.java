@@ -56,8 +56,16 @@ public class FornecedorAbstractTableModel extends AbstractTableModel {
     public void adicionar (Fornecedor item) {
         listaItens.add(item);
         fireTableRowsInserted( listaItens.size() - 1, listaItens.size() - 1 );
-        
     }
+    
+    
+    public void adicionar (List<Fornecedor> item) {
+        for (Fornecedor next : item) {  
+            listaItens.add((Fornecedor) next);
+            fireTableRowsInserted( listaItens.size() - 1, listaItens.size() - 1 ); 
+        }
+    }
+
     
     public void remover (int indice) {        
         listaItens.remove(indice);

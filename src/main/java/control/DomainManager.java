@@ -8,10 +8,12 @@ import dao.ConexaoHibernate;
 import dao.GenericDAO;
 import java.util.Date;
 import java.util.List;
+import model.Caixa;
 import model.Categoria;
 import model.Cliente;
 import model.Endereco;
 import model.Fornecedor;
+import model.Produto;
 import org.hibernate.HibernateException;
 import org.postgresql.util.PSQLException;
 
@@ -26,6 +28,10 @@ public class DomainManager {
         //ConnectionSQLDB.catchConnection();
         ConexaoHibernate.getSessionFactory();
         genDao = new GenericDAO();
+    }
+    
+    public List listar(Class classe) throws HibernateException  {
+        return genDao.listar(classe );
     }
  
     //---------CLIENTE----------
@@ -60,7 +66,7 @@ public class DomainManager {
         Endereco endereco = new Endereco(id, logradouro, bairro, cidade, numero);
         genDao.alterar(endereco);
     }
-
+    
     //---------FORNECEDOR----------
     public Fornecedor inserirFornecedor(Endereco id_endereco, String cnpj, String email, String contato, String observacoes, String nome_social){
         Fornecedor fornecedor = new Fornecedor(id_endereco, cnpj, email, contato, observacoes, nome_social);
@@ -86,5 +92,19 @@ public class DomainManager {
     
     public List<Categoria> pesquisarCategoria(){
         return genDao.listar(Categoria.class);
+    }
+
+    //-----------Produto-----------
+    public Produto inserirProduto(String nome, Double valor, String obsString, Categoria categoria){
+        Produto produto = new Produto(nome, valor, obsString, categoria);
+        genDao.inserir(produto);
+        return produto;
+    }
+    
+    //-----------Caixa-----------
+    public Caixa inserirCaixa(Date dataAtual, Double caixaInicial, Double caixaFinalPrevisto, Double caixaFinalObtido){
+        Caixa caixa = new Caixa(caixaInicial, caixaFinalObtido, caixaFinalPrevisto, dataAtual);
+        genDao.inserir(caixa);
+        return caixa;
     }
 }

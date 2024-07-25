@@ -32,7 +32,7 @@ public class Fornecedor implements Serializable{
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
     
-    @Column(length = 11)
+    @Column(length = 18)
     private String cnpj;
     
     @Column(unique = true)
@@ -125,6 +125,4 @@ public class Fornecedor implements Serializable{
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
     }
-    
-    
 }

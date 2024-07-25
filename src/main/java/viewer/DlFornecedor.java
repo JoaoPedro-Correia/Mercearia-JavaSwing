@@ -6,6 +6,7 @@ package viewer;
 
 import control.FornecedorAbstractTableModel;
 import control.GUIManager;
+import java.util.List;
 import model.Endereco;
 import model.Fornecedor;
 
@@ -28,6 +29,7 @@ public class DlFornecedor extends javax.swing.JDialog {
         
         fornecedorATM = new FornecedorAbstractTableModel();
         tabelaFornecedor.setModel(fornecedorATM);
+        carregarDados();
     }
 
     /**
@@ -359,14 +361,14 @@ public class DlFornecedor extends javax.swing.JDialog {
         // INSERIR NO BANCO
         if ( fornecedor == null ) {
             // INSERIR
-            end = GUIManager.getInstance().getGerenciadorDominio().inserirEndereco(tipoEndereco, tipoBairro, tipoCidade, num);
-            Fornecedor forn = GUIManager.getInstance().getGerenciadorDominio().inserirFornecedor(end, tipoCnpj, tipoEmail, tipoCotato, tipoObs, tipoNome);
+            end = GUIManager.getInstance().getDomainManager().inserirEndereco(tipoEndereco, tipoBairro, tipoCidade, num);
+            Fornecedor forn = GUIManager.getInstance().getDomainManager().inserirFornecedor(end, tipoCnpj, tipoEmail, tipoCotato, tipoObs, tipoNome);
             fornecedorATM.adicionar(forn);
             limparCampos();
         } else {
             // ALTERAR
-            GUIManager.getInstance().getGerenciadorDominio().alterarEndereco(fornEndereco.getId(), tipoBairro, tipoBairro, tipoCidade, num);
-            GUIManager.getInstance().getGerenciadorDominio().alterarFornecedor(num, fornEndereco, tipoCnpj, tipoEmail, tipoCotato, tipoObs, tipoNome);
+            GUIManager.getInstance().getDomainManager().alterarEndereco(fornEndereco.getId(), tipoBairro, tipoBairro, tipoCidade, num);
+            GUIManager.getInstance().getDomainManager().alterarFornecedor(num, fornEndereco, tipoCnpj, tipoEmail, tipoCotato, tipoObs, tipoNome);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -446,6 +448,11 @@ public class DlFornecedor extends javax.swing.JDialog {
         textCidade.setText("");
         textEmail.setText("");
         textContato.setText("");
+    }
+    
+    private void carregarDados(){
+        List<Fornecedor> list = GUIManager.getInstance().getDomainManager().pesquisarFornecedor();
+        fornecedorATM.adicionar(list);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

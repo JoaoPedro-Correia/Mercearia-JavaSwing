@@ -7,7 +7,6 @@ package model;
 import dao.*;
 import java.util.List;
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -50,6 +49,22 @@ public class Produto implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_categoria")
     private Categoria categoria;
+
+    public Produto(String nome_produto, Double valor, String observacao, Categoria categoria) {
+        this.nome_produto = nome_produto;
+        this.valor = valor;
+        this.observacao = observacao;
+        this.categoria = categoria;
+        this.foto = null;
+    }
+
+    public Produto(Integer qntd, String nome_produto, Double valor, String observacao, Categoria categoria) {
+        this.qntd = qntd;
+        this.nome_produto = nome_produto;
+        this.valor = valor;
+        this.observacao = observacao;
+        this.categoria = categoria;
+    }
 
     public Produto(Integer id, Integer qntd, String nome_produto, Double valor, String observacao, byte[] foto, Categoria id_categoria) {
         this.id = id;

@@ -66,4 +66,9 @@ public class Categoria implements Serializable {
     public String getNome_categoria() {
         return nome_categoria;
     }
+
+    @Override
+    public String toString() {
+        return nome_categoria;
+    }
 }

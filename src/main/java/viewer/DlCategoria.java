@@ -173,7 +173,7 @@ public class DlCategoria extends javax.swing.JDialog {
         // TODO add your handling code here:
         String catDescricao = descricao.getText();
         
-        Categoria categoria = GUIManager.getInstance().getGerenciadorDominio().inserirCategoria(catDescricao);
+        Categoria categoria = GUIManager.getInstance().getDomainManager().inserirCategoria(catDescricao);
         categoriaATM.adicionar(categoria);
         
         descricao.setText("");
@@ -184,7 +184,7 @@ public class DlCategoria extends javax.swing.JDialog {
     }//GEN-LAST:event_descricaoActionPerformed
 
     private void carregarDados(){
-        List<Categoria> list = GUIManager.getInstance().getGerenciadorDominio().pesquisarCategoria();
+        List<Categoria> list = GUIManager.getInstance().getDomainManager().pesquisarCategoria();
         categoriaATM.adicionar(list);
     }
     

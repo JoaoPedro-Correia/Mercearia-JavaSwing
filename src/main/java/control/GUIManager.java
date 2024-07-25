@@ -8,8 +8,11 @@ import java.awt.Dialog;
 import java.awt.Frame;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
@@ -63,7 +66,7 @@ public class GUIManager {
     dlg.setLocation(100, 100);
     return dlg;
   }
-  public DomainManager getGerenciadorDominio() {
+  public DomainManager getDomainManager() {
     return doManager;       
   }
 
@@ -110,6 +113,17 @@ public class GUIManager {
     jfMenu.setVisible(true);
     jfMenu.setLocation(100, 100);
   }
+  
+    public void carregarCombo(JComboBox combo, Class classe) {
+        try {
+            List lista = GUIManager.getInstance().getDomainManager().listar(classe);
+            combo.setModel( new DefaultComboBoxModel(lista.toArray() ) );
+        } catch (HibernateException ex) {
+            JOptionPane.showMessageDialog(jfMenu, "Erro ao carregar combo CIDADE. " + ex.getMessage() );
+        }
+        
+    }
+  
 
   /**
    * @param args the command line arguments

@@ -38,6 +38,21 @@ public class Caixa implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date data;
 
+    public Caixa(Double caixa_ini, Double caixa_fin, Double caixa_fin_previsto, Date data) {
+        this.caixa_ini = caixa_ini;
+        this.caixa_fin = caixa_fin;
+        this.caixa_fin_previsto = caixa_fin_previsto;
+        this.data = data;
+    }
+
+    public Caixa(Integer id, Double caixa_ini, Double caixa_fin, Double caixa_fin_previsto, Date data) {
+        this.id = id;
+        this.caixa_ini = caixa_ini;
+        this.caixa_fin = caixa_fin;
+        this.caixa_fin_previsto = caixa_fin_previsto;
+        this.data = data;
+    }
+
     public Caixa() {
     }
 

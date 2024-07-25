@@ -457,13 +457,13 @@ public class DlCliente extends javax.swing.JDialog {
             // INSERIR NO BANCO
             if ( cliente == null ) {
                 // INSERIR
-                end = GUIManager.getInstance().getGerenciadorDominio().inserirEndereco(tipoEndereco, tipoBairro, tipoCidade, num);
-                Cliente cli = GUIManager.getInstance().getGerenciadorDominio().inserirCliente(tipoNome, tipoCpf, end, tipoSexo, tipoEmail, nasc, tipoCotato, tipoObs);
+                end = GUIManager.getInstance().getDomainManager().inserirEndereco(tipoEndereco, tipoBairro, tipoCidade, num);
+                Cliente cli = GUIManager.getInstance().getDomainManager().inserirCliente(tipoNome, tipoCpf, end, tipoSexo, tipoEmail, nasc, tipoCotato, tipoObs);
                 clienteATM.adicionar(cli);
             } else {
                 // ALTERAR
-                GUIManager.getInstance().getGerenciadorDominio().alterarEndereco(cliEndereco.getId(), tipoBairro, tipoBairro, tipoCidade, num);
-                GUIManager.getInstance().getGerenciadorDominio().alterarCliente(cliente.getId(),tipoNome, tipoCpf, end, tipoSexo, tipoEmail, nasc, tipoCotato, tipoObs);
+                GUIManager.getInstance().getDomainManager().alterarEndereco(cliEndereco.getId(), tipoBairro, tipoBairro, tipoCidade, num);
+                GUIManager.getInstance().getDomainManager().alterarCliente(cliente.getId(),tipoNome, tipoCpf, end, tipoSexo, tipoEmail, nasc, tipoCotato, tipoObs);
             }
             limparTela();
         } catch (ParseException ex) {
@@ -588,7 +588,7 @@ public class DlCliente extends javax.swing.JDialog {
     }
     
     private void carregarDados(){
-        List<Cliente> list = GUIManager.getInstance().getGerenciadorDominio().pesquisarCliente();
+        List<Cliente> list = GUIManager.getInstance().getDomainManager().pesquisarCliente();
         clienteATM.adicionar(list);
     }
     
