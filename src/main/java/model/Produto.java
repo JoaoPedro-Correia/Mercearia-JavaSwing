@@ -4,7 +4,6 @@
  */
 package model;
 
-import dao.*;
 import java.util.List;
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -24,31 +23,35 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Produto implements Serializable {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     private Integer qntd;
-    
+
     private String nome_produto;
-    
-    @OneToMany (mappedBy = "estoque.produto", fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "estoque.produto", fetch = FetchType.LAZY)
     private List<Estoque> estoque;
-    
-    @OneToMany (mappedBy = "produtovenda.produto", fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "produtovenda.produto", fetch = FetchType.LAZY)
     private List<ProdutoVenda> produtovenda;
-    
+
     @Column(precision = 2)
     private Double valor;
-    
+
     private String observacao;
-    
+
     @Lob
     private byte[] foto;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_categoria")
     private Categoria categoria;
+
+    public Produto() {
+    }
 
     public Produto(String nome_produto, Double valor, String observacao, Categoria categoria) {
         this.nome_produto = nome_produto;
@@ -58,17 +61,16 @@ public class Produto implements Serializable {
         this.foto = null;
     }
 
-    public Produto(Integer qntd, String nome_produto, Double valor, String observacao, Categoria categoria) {
-        this.qntd = qntd;
+    public Produto(String nome_produto, Double valor, String observacao, byte[] foto, Categoria categoria) {
         this.nome_produto = nome_produto;
         this.valor = valor;
         this.observacao = observacao;
+        this.foto = foto;
         this.categoria = categoria;
     }
 
-    public Produto(Integer id, Integer qntd, String nome_produto, Double valor, String observacao, byte[] foto, Categoria id_categoria) {
+    public Produto(Integer id, String nome_produto, Double valor, String observacao, byte[] foto, Categoria id_categoria) {
         this.id = id;
-        this.qntd = qntd;
         this.nome_produto = nome_produto;
         this.valor = valor;
         this.observacao = observacao;
@@ -84,9 +86,6 @@ public class Produto implements Serializable {
         this.categoria = categoria;
     }
 
-    public Produto() {
-    }
-    
     public Integer getId() {
         return id;
     }
@@ -134,6 +133,9 @@ public class Produto implements Serializable {
     public void setFoto(byte[] foto) {
         this.foto = foto;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return this.nome_produto +" - "+ this.observacao;
+    }
 }

@@ -22,14 +22,15 @@ public class ProdutoVenda implements Serializable {
     @EmbeddedId
     private ProdutoVendaPK produtovenda;
 
-    public ProdutoVenda() {
-    }
-    
     private Integer qntd;
     
     @Column(precision = 2)
     private Double valor;
 
+    
+    public ProdutoVenda() {
+    }
+    
     public ProdutoVenda(Integer qntd, Double valor, Produto prod, Venda vend) {
         this.produtovenda = new ProdutoVendaPK(prod, vend);
         this.qntd = qntd;
@@ -59,6 +60,4 @@ public class ProdutoVenda implements Serializable {
     public void setValor(Double valor) {
         this.valor = valor;
     }
-    
-    
 }

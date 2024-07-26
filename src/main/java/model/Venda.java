@@ -86,5 +86,4 @@ public class Venda implements Serializable {
     public Pagamento getPagamento() {
         return id_pagamento;
     }
-    
 }

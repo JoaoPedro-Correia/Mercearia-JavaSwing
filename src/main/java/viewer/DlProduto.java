@@ -5,9 +5,13 @@
 package viewer;
 
 import control.GUIManager;
-import java.util.List;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
+import java.awt.Image;
+import java.io.File;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Categoria;
 import model.Produto;
 
@@ -52,7 +56,7 @@ public class DlProduto extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        foto = new javax.swing.JLabel();
+        lblFoto = new javax.swing.JLabel();
         addCategoria = new javax.swing.JButton();
 
         jLabel4.setText("jLabel4");
@@ -68,7 +72,7 @@ public class DlProduto extends javax.swing.JDialog {
 
         jButton2.setBackground(new java.awt.Color(153, 255, 153));
         jButton2.setText("Confirmar");
-        jButton2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -77,7 +81,7 @@ public class DlProduto extends javax.swing.JDialog {
 
         jButton3.setBackground(new java.awt.Color(255, 153, 153));
         jButton3.setText("Cancelar");
-        jButton3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -132,10 +136,16 @@ public class DlProduto extends javax.swing.JDialog {
 
         jLabel6.setText("Foto");
 
-        foto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        foto.setText("FOTO");
-        foto.setToolTipText("");
-        foto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblFoto.setText("FOTO");
+        lblFoto.setToolTipText("");
+        lblFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblFoto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblFoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblFotoMouseClicked(evt);
+            }
+        });
 
         addCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons8-plus-20.png"))); // NOI18N
         addCategoria.addActionListener(new java.awt.event.ActionListener() {
@@ -169,7 +179,7 @@ public class DlProduto extends javax.swing.JDialog {
                         .addComponent(addCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(foto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(260, 260, 260)))
                 .addContainerGap())
         );
@@ -184,7 +194,7 @@ public class DlProduto extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(addCategoria)))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,7 +213,7 @@ public class DlProduto extends javax.swing.JDialog {
                         .addGap(83, 83, 83))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(foto, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -225,7 +235,7 @@ public class DlProduto extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
@@ -253,6 +263,7 @@ public class DlProduto extends javax.swing.JDialog {
     private void addCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoriaActionPerformed
         // TODO add your handling code here:
         GUIManager.getInstance().openWindowCategoria();
+        DlCategoria.setDefaultLookAndFeelDecorated(true);
     }//GEN-LAST:event_addCategoriaActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
@@ -264,10 +275,42 @@ public class DlProduto extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_categoriaActionPerformed
 
-    public void limparJanela(){
+    private void lblFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFotoMouseClicked
+        JFileChooser jan = new JFileChooser();
+        
+        jan.setAcceptAllFileFilterUsed(false);
+        jan.setFileFilter( new FileNameExtensionFilter("Imagens (*.jpg, *.png)", "jpg", "png", "gif", "bmp") );
+        jan.addChoosableFileFilter( new FileNameExtensionFilter("Arquivo texto", "txt") );
+        
+        String osName = System.getProperty("os.name").toLowerCase();
+        // Verificar e exibir o sistema operacional
+        if (osName.contains("win")) {
+            jan.setCurrentDirectory( new File("d:\\Users\\1547816\\Pictures") );
+        } else if (osName.contains("nix") || osName.contains("nux") || osName.contains("mac")) {
+            jan.setCurrentDirectory( new File("~/") );
+        }
+        if ( jan.showOpenDialog(jan) == JFileChooser.APPROVE_OPTION ) {
+            File arquivo = jan.getSelectedFile();
+            Icon imagem = new ImageIcon ( arquivo.getAbsolutePath() );
+            mostrarFoto(imagem);
+        }
+    }//GEN-LAST:event_lblFotoMouseClicked
+    
+    private void mostrarFoto(Icon ic) {
+        // Redimensionar
+        ImageIcon imagem = (ImageIcon) ic;
+        imagem.setImage(imagem.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_DEFAULT));
+        
+        lblFoto.setText("");                
+        lblFoto.setIcon(imagem);
+    }
+    
+    private void limparJanela() {
         produtoNome.setText("");
         preco.setText("");
         observacoes.setText("");
+        lblFoto.setText("Foto");
+        lblFoto.setIcon(null);
     }
     
     /**
@@ -315,7 +358,6 @@ public class DlProduto extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addCategoria;
     private javax.swing.JComboBox<String> categoria;
-    private javax.swing.JLabel foto;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -328,6 +370,7 @@ public class DlProduto extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblFoto;
     private javax.swing.JTextArea observacoes;
     private javax.swing.JFormattedTextField preco;
     private javax.swing.JTextField produtoNome;

@@ -51,7 +51,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="16" max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
           </Group>
@@ -94,7 +94,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Confirmar"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
                 <BevelBorder/>
               </Border>
             </Property>
@@ -110,7 +110,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
                 <BevelBorder/>
               </Border>
             </Property>
@@ -160,7 +160,7 @@
                       </Group>
                       <Component id="jScrollPane1" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="foto" max="32767" attributes="0"/>
+                          <Component id="lblFoto" max="32767" attributes="0"/>
                           <EmptySpace min="260" pref="260" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -180,7 +180,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="categoria" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="categoria" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                           <Component id="addCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -204,7 +204,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="foto" min="-2" pref="117" max="-2" attributes="0"/>
+                          <Component id="lblFoto" min="-2" pref="117" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -280,7 +280,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
         </Component>
-        <Component class="javax.swing.JLabel" name="foto">
+        <Component class="javax.swing.JLabel" name="lblFoto">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="FOTO"/>
@@ -290,7 +290,13 @@
                 <LineBorder/>
               </Border>
             </Property>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblFotoMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="addCategoria">
           <Properties>

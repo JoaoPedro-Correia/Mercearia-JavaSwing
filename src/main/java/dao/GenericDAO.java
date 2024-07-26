@@ -7,6 +7,7 @@ package dao;
 
 import java.util.List;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.security.auth.login.LoginException;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
@@ -16,7 +17,7 @@ import org.hibernate.Session;
  */
 public class GenericDAO {
     
-    public void inserir(Object obj) throws HibernateException {        
+    public void inserir(Object obj) throws HibernateException{        
         
         Session sessao = null;
         
@@ -35,7 +36,7 @@ public class GenericDAO {
                 sessao.close();
             }
             throw new HibernateException(erro);
-        }
+        } 
     }
     
     

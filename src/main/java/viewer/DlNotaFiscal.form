@@ -50,7 +50,7 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jScrollPane1" pref="522" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="retornarMenuInicial1" min="-2" max="-2" attributes="0"/>
+                      <Component id="retornarMenu" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -65,7 +65,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <Component id="retornarMenuInicial1" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="retornarMenu" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="17" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="440" max="-2" attributes="0"/>
@@ -133,15 +133,12 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/icons8-note-20.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Emitir Nota"/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="retornarMenuInicial1">
+    <Component class="javax.swing.JLabel" name="retornarMenu">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="2" name="/home/correia/NetBeansProjects/Mercearia/src/main/resources/imagens/icons8-home-25.png"/>
@@ -156,7 +153,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="retornarMenuInicial1MouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="retornarMenuMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>

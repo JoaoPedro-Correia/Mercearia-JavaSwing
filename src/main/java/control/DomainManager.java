@@ -96,7 +96,8 @@ public class DomainManager {
 
     //-----------Produto-----------
     public Produto inserirProduto(String nome, Double valor, String obsString, Categoria categoria){
-        Produto produto = new Produto(nome, valor, obsString, categoria);
+        //Produto produto = new Produto(nome, valor, obsString, categoria);
+        Produto produto = new Produto(nome, valor, obsString, new byte[Integer.BYTES], categoria);
         genDao.inserir(produto);
         return produto;
     }

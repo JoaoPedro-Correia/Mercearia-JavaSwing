@@ -4,17 +4,18 @@
  */
 package model;
 
-import dao.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import jdk.jfr.Timestamp;
 
 /**
  *
@@ -37,6 +38,9 @@ public class Caixa implements Serializable {
     
     @Temporal(TemporalType.DATE)
     private Date data;
+    
+     @OneToMany (mappedBy = "id_caixa", fetch = FetchType.LAZY)
+    private List<Venda> venda;
 
     public Caixa(Double caixa_ini, Double caixa_fin, Double caixa_fin_previsto, Date data) {
         this.caixa_ini = caixa_ini;
