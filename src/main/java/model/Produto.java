@@ -59,6 +59,7 @@ public class Produto implements Serializable {
         this.observacao = observacao;
         this.categoria = categoria;
         this.foto = null;
+        this.qntd = 0;
     }
 
     public Produto(String nome_produto, Double valor, String observacao, byte[] foto, Categoria categoria) {
@@ -67,6 +68,7 @@ public class Produto implements Serializable {
         this.observacao = observacao;
         this.foto = foto;
         this.categoria = categoria;
+        this.qntd = 0;
     }
 
     public Produto(Integer id, String nome_produto, Double valor, String observacao, byte[] foto, Categoria id_categoria) {
@@ -132,6 +134,10 @@ public class Produto implements Serializable {
 
     public void setFoto(byte[] foto) {
         this.foto = foto;
+    }
+    
+    public void addQntd(Integer qntd) {
+        this.qntd += qntd;
     }
 
     @Override

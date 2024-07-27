@@ -4,8 +4,15 @@
  */
 package viewer;
 
+import control.FuncoesUteis;
 import control.GUIManager;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import model.Estoque;
+import model.Fornecedor;
+import model.Produto;
 
 /**
  *
@@ -38,9 +45,9 @@ public class DlPedido extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jSpinner1 = new javax.swing.JSpinner();
+        jcbFornecedor = new javax.swing.JComboBox<>();
+        jcbProduto = new javax.swing.JComboBox<>();
+        jsQuantidade = new javax.swing.JSpinner();
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -52,6 +59,11 @@ public class DlPedido extends javax.swing.JDialog {
         setLocationByPlatform(true);
         setModal(true);
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -62,7 +74,9 @@ public class DlPedido extends javax.swing.JDialog {
 
         jLabel3.setText("Quantidade");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        jcbProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+
+        jsQuantidade.setToolTipText("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -76,9 +90,9 @@ public class DlPedido extends javax.swing.JDialog {
                     .addComponent(jLabel3))
                 .addGap(55, 55, 55)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, 0, 271, Short.MAX_VALUE)
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSpinner1))
+                    .addComponent(jcbFornecedor, 0, 271, Short.MAX_VALUE)
+                    .addComponent(jcbProduto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jsQuantidade))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -87,15 +101,15 @@ public class DlPedido extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jsQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
 
@@ -171,7 +185,31 @@ public class DlPedido extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        
+        try {
+            Fornecedor fonecedor = (Fornecedor)jcbFornecedor.getSelectedItem();
+            Produto produto = (Produto)jcbProduto.getSelectedItem();
+            Integer quantidade = (Integer) jsQuantidade.getValue();
+            Date dataAtual = formato.parse(FuncoesUteis.dataAtual());
+            
+            Estoque estoque = GUIManager.getInstance().getDomainManager().inserirEstoque(quantidade, dataAtual, fonecedor, produto);
+            
+            jsQuantidade.setValue(0);
+            
+            //atualiza quantidade do produto
+            produto.addQntd(quantidade);
+            GUIManager.getInstance().getDomainManager().updateProduto(produto);
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao pegar elementos");
+        }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        GUIManager.getInstance().carregarCombo(jcbFornecedor, Fornecedor.class);
+        GUIManager.getInstance().carregarCombo(jcbProduto, Produto.class);
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -219,13 +257,13 @@ public class DlPedido extends javax.swing.JDialog {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JComboBox<String> jcbFornecedor;
+    private javax.swing.JComboBox<String> jcbProduto;
+    private javax.swing.JSpinner jsQuantidade;
     // End of variables declaration//GEN-END:variables
 }

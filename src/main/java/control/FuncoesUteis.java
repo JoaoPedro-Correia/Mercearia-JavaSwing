@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
@@ -132,6 +133,10 @@ public class FuncoesUteis {
         }
 
     }
-
+    
+    public static String dataAtual(){
+        LocalDate data = LocalDate.now();
+        return data.toString();
+    }
 
 }

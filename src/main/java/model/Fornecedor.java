@@ -4,7 +4,6 @@
  */
 package model;
 
-import dao.*;
 import java.util.List;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
@@ -125,4 +124,10 @@ public class Fornecedor implements Serializable{
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
     }
+
+    @Override
+    public String toString() {
+        return nome_social;
+    }
+    
 }

@@ -4,13 +4,11 @@
  */
 package viewer;
 
+import control.FuncoesUteis;
 import control.GUIManager;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Caixa;
 
@@ -291,8 +289,7 @@ public class DlCaixa extends javax.swing.JDialog {
     }
     
     private void preencherDataAtual(){
-        LocalDate data = LocalDate.now();
-        dataAtual.setText(data.toString());
+        dataAtual.setText(FuncoesUteis.dataAtual());
         dataAtual.setEnabled(false);
     }
     

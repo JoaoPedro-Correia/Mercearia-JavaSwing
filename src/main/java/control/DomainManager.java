@@ -6,14 +6,12 @@ package control;
 
 import dao.ConexaoHibernate;
 import dao.GenericDAO;
+import java.io.File;
 import java.util.Date;
 import java.util.List;
-import model.Caixa;
-import model.Categoria;
-import model.Cliente;
-import model.Endereco;
-import model.Fornecedor;
-import model.Produto;
+import javax.swing.Icon;
+import javax.swing.JFileChooser;
+import model.*;
 import org.hibernate.HibernateException;
 import org.postgresql.util.PSQLException;
 
@@ -97,9 +95,23 @@ public class DomainManager {
     //-----------Produto-----------
     public Produto inserirProduto(String nome, Double valor, String obsString, Categoria categoria){
         //Produto produto = new Produto(nome, valor, obsString, categoria);
-        Produto produto = new Produto(nome, valor, obsString, new byte[Integer.BYTES], categoria);
+        Produto produto = new Produto(nome, valor, obsString, imagemGenerica(),categoria);
         genDao.inserir(produto);
         return produto;
+    }
+    
+     public Produto inserirProduto(String nome, Double valor, String obsString, Categoria categoria, byte[] foto){
+        Produto produto = new Produto(nome, valor, obsString, foto, categoria);
+        genDao.inserir(produto);
+        return produto;
+    }
+     
+    public List<Produto> pesquisarProduto(){
+        return genDao.listar(Produto.class);
+    }
+    
+    public void updateProduto(Produto produto){
+        genDao.alterar(produto);
     }
     
     //-----------Caixa-----------
@@ -107,5 +119,24 @@ public class DomainManager {
         Caixa caixa = new Caixa(caixaInicial, caixaFinalObtido, caixaFinalPrevisto, dataAtual);
         genDao.inserir(caixa);
         return caixa;
+    }
+    
+    //-------------Estoque---------------
+    public Estoque inserirEstoque(Integer qntd, Date data_comp, Fornecedor forn, Produto prod){
+        Estoque estoque = new Estoque(qntd, data_comp, forn, prod);
+        genDao.inserir(estoque);
+        return estoque;
+    }
+
+    public List<Estoque> pesquisarEstoque(){
+        return genDao.listar(Estoque.class);
+    }
+
+    
+    //------------FUNCOES EXTRAS--------------
+    private byte[] imagemGenerica(){
+        JFileChooser jan = new JFileChooser();
+        Icon foto = jan.getIcon(new File("pineapple-50.png"));
+        return FuncoesUteis.IconToBytes(foto);
     }
 }

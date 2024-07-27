@@ -4,14 +4,16 @@
  */
 package model;
 
-import dao.*;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -19,6 +21,9 @@ import javax.persistence.ManyToOne;
  */
 @Embeddable
 public class EstoquePK implements Serializable {
+    @Temporal(TemporalType.DATE)
+    private Date data_comp;
+    
     @ManyToOne
     @JoinColumn(name = "idproduto")
     private Produto produto;
@@ -34,7 +39,8 @@ public class EstoquePK implements Serializable {
         return produto;
     }
 
-    public EstoquePK(Produto produto, Fornecedor fornecedor) {
+    public EstoquePK(Date data, Produto produto, Fornecedor fornecedor) {
+        this.data_comp = data;
         this.produto = produto;
         this.fornecedor = fornecedor;
     }
@@ -42,6 +48,15 @@ public class EstoquePK implements Serializable {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
+
+    public Date getData_comp() {
+        return data_comp;
+    }
+
+    public void setData_comp(Date data_comp) {
+        this.data_comp = data_comp;
+    }
+
 
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;

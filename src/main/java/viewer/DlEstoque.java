@@ -4,14 +4,18 @@
  */
 package viewer;
 
+import control.EstoqueAbstractTableModel;
 import control.GUIManager;
+import java.util.List;
+import model.Estoque;
 
 /**
  *
  * @author correia
  */
 public class DlEstoque extends javax.swing.JDialog {
-
+    private Estoque estoque = null;
+    private EstoqueAbstractTableModel estoqueATM;
     /**
      * Creates new form DlEstoque
      */
@@ -20,6 +24,10 @@ public class DlEstoque extends javax.swing.JDialog {
         this.setSize(757, 621);
         this.setResizable(false);
         initComponents();
+        
+        estoqueATM = new EstoqueAbstractTableModel();
+        tabelaEstoque.setModel(estoqueATM);
+        carregarDados();
     }
 
     /**
@@ -33,7 +41,7 @@ public class DlEstoque extends javax.swing.JDialog {
 
         retornarMenuInicial = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaEstoque = new javax.swing.JTable();
         adicionarPedido = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         adicionarCategoria = new javax.swing.JPanel();
@@ -48,6 +56,13 @@ public class DlEstoque extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         retornarMenuInicial.setIcon(new javax.swing.ImageIcon("/home/correia/NetBeansProjects/Mercearia/src/main/resources/imagens/icons8-home-25.png")); // NOI18N
         retornarMenuInicial.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -58,24 +73,24 @@ public class DlEstoque extends javax.swing.JDialog {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaEstoque.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Foto", "Estoque", "Produto", "Quantidade", "Entrega Sit."
+                "Foto", "Produto", "Quantidade", "Fornecedor"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Byte.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class
+                java.lang.Byte.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jTable1.setToolTipText("");
-        jScrollPane1.setViewportView(jTable1);
+        tabelaEstoque.setToolTipText("");
+        jScrollPane1.setViewportView(tabelaEstoque);
 
         adicionarPedido.setBackground(new java.awt.Color(255, 255, 255));
         adicionarPedido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -259,6 +274,16 @@ public class DlEstoque extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        carregarDados();
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void carregarDados(){
+        List<Estoque> list = GUIManager.getInstance().getDomainManager().pesquisarEstoque();
+        estoqueATM.adicionar(list);
+    }
+
+    
     /**
      * @param args the command line arguments
      */
@@ -313,8 +338,8 @@ public class DlEstoque extends javax.swing.JDialog {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel retornarMenuInicial;
+    private javax.swing.JTable tabelaEstoque;
     // End of variables declaration//GEN-END:variables
 }
