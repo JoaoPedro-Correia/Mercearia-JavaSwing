@@ -12,7 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 /**
@@ -24,6 +23,8 @@ public class Pagamento implements Serializable {
     @Id    
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
+        
+    private String descricao;
     
     @OneToMany ( mappedBy = "id_pagamento" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Venda> venda;
@@ -35,14 +36,16 @@ public class Pagamento implements Serializable {
     public void setVenda(List<Venda> venda) {
         this.venda = venda;
     }
-        
-    private String descricao;
 
     public Pagamento() {
     }
 
     public Pagamento(Integer id, String descricao) {
         this.id = id;
+        this.descricao = descricao;
+    }
+
+    public Pagamento(String descricao) {
         this.descricao = descricao;
     }
     
@@ -61,6 +64,9 @@ public class Pagamento implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return descricao;
+    }   
 }

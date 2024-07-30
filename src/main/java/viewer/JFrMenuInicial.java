@@ -23,7 +23,6 @@ public class JFrMenuInicial extends javax.swing.JFrame {
         this.setSize(520,800);
         this.setResizable(false);
         initComponents();
-        criarClienteSemCadastro();
     }
 
     /**
@@ -57,6 +56,9 @@ public class JFrMenuInicial extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -307,6 +309,11 @@ public class JFrMenuInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowActivated
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        criarClienteSemCadastro();
+        criarPagamentos();
+    }//GEN-LAST:event_formWindowOpened
+
     private void criarClienteSemCadastro(){
         try{
             List<String> mestre = GUIManager.getInstance().getDomainManager().minhaQuery("FROM Cliente WHERE NOME='Sem Cadastro'");
@@ -315,6 +322,16 @@ public class JFrMenuInicial extends javax.swing.JFrame {
             }
         }catch(QuerySyntaxException ex){
             JOptionPane.showMessageDialog(this, "Erro de Querry: "+ex);
+        }
+    }
+    
+    private void criarPagamentos(){
+        List pagamentos = GUIManager.getInstance().getDomainManager().minhaQuery("FROM Pagamento");
+        if(pagamentos.isEmpty()){
+            GUIManager.getInstance().getDomainManager().inserirPagamento("PIX");
+            GUIManager.getInstance().getDomainManager().inserirPagamento("Credito");
+            GUIManager.getInstance().getDomainManager().inserirPagamento("Debito");
+            GUIManager.getInstance().getDomainManager().inserirPagamento("Dinheiro");
         }
     }
 

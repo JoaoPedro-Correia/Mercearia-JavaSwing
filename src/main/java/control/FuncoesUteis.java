@@ -28,13 +28,13 @@ import javax.swing.JFileChooser;
  */
 public class FuncoesUteis {    
     public static Date strToDate( String strDt) throws ParseException {
-        DateFormat dtForm = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat dtForm = new SimpleDateFormat("yyyy-MM-dd");
         //dtForm.setLenient(false);
         return dtForm.parse(strDt);
     }
     
     public static String dateToStr( Date dt) throws ParseException {
-        DateFormat dtForm = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat dtForm = new SimpleDateFormat("yyyy-MM-dd");
         //dtForm.setLenient(false);
         return dtForm.format(dt);
     }

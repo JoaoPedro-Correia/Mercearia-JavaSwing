@@ -73,6 +73,10 @@ public class Caixa implements Serializable {
         return caixa_ini;
     }
 
+    public List<Venda> getVenda() {
+        return venda;
+    }
+
     public Date getData() {
         return data;
     }

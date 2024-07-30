@@ -7,8 +7,6 @@ package viewer;
 import control.ClienteAbstractTableModel;
 import control.FuncoesUteis;
 import control.GUIManager;
-import dao.GenericDAO;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -22,8 +20,8 @@ import model.Endereco;
  * @author correia
  */
 public class DlCliente extends javax.swing.JDialog {
-    private Cliente cliente;
-    private Endereco cliEndereco;
+    private Cliente cliente=null;
+    private Endereco cliEndereco=null;
     private ClienteAbstractTableModel clienteATM;
 
     /**
@@ -35,8 +33,6 @@ public class DlCliente extends javax.swing.JDialog {
         this.setResizable(false);
         initComponents();
         
-        this.cliente=null;
-        this.cliEndereco=null;
         this.clienteATM = new ClienteAbstractTableModel();
         tabelaCliente.setModel(clienteATM);
         carregarDados();

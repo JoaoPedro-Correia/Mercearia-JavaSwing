@@ -93,4 +93,12 @@ public class Venda implements Serializable {
     public Pagamento getPagamento() {
         return id_pagamento;
     }
+
+    public Pagamento getId_pagamento() {
+        return id_pagamento;
+    }
+
+    public List<ProdutoVenda> getProdutoVenda() {
+        return produtoVenda;
+    }
 }

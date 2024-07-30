@@ -6,11 +6,8 @@ package control;
 
 import dao.ConexaoHibernate;
 import dao.GenericDAO;
-import java.io.File;
 import java.util.Date;
 import java.util.List;
-import javax.swing.Icon;
-import javax.swing.JFileChooser;
 import model.*;
 import org.hibernate.HibernateException;
 import org.postgresql.util.PSQLException;
@@ -162,6 +159,30 @@ public class DomainManager {
         Venda venda = new Venda(caixa);
         genDao.inserir(venda);
         return venda;
+    }
+    
+    public void alterarVenda(Venda venda){
+        genDao.alterar(venda);
+    }
+    
+    //------------Pagamento-------------
+    public Pagamento inserirPagamento(String descricao){
+        Pagamento pagamento = new Pagamento(descricao);
+        genDao.inserir(pagamento);
+        return pagamento;
+    }
+    
+    public List<Pagamento> pesquisarPagamento(){
+        return genDao.listar(Pagamento.class);
+    }
+    
+    //-----------Buscas---------------
+    public Object buscaLoad(Class classe, int id) throws HibernateException{
+        return genDao.load(classe, id);
+    }
+    
+    public Object buscaGet(Class classe, int id) throws HibernateException{
+        return genDao.get(classe, id);
     }
     
     //------------Query-------------

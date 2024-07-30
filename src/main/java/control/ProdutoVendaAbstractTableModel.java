@@ -61,7 +61,11 @@ public class ProdutoVendaAbstractTableModel extends AbstractTableModel {
     public void remover (int indice) {        
         listaItens.remove(indice);
         fireTableRowsDeleted( indice, indice );
-        
+    }
+    
+    public void removerTudo () {
+        fireTableRowsDeleted(0, this.getRowCount());        
+        listaItens.clear();
     }
 
     public ProdutoVenda getCategorias(int linha) {

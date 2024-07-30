@@ -42,6 +42,13 @@ public class DlNotaFiscal extends javax.swing.JDialog {
         jToggleButton1.setText("jToggleButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jTable1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -49,7 +56,7 @@ public class DlNotaFiscal extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Tipo", "Número", "Data", "Hora"
+                "Data", "Cliente", "Valor"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -126,6 +133,10 @@ public class DlNotaFiscal extends javax.swing.JDialog {
         this.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
         this.setVisible(false);
     }//GEN-LAST:event_retornarMenuMouseClicked
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments

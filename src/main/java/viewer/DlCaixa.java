@@ -7,10 +7,12 @@ package viewer;
 import control.FuncoesUteis;
 import control.GUIManager;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.Caixa;
+import model.ProdutoVenda;
+import model.Venda;
 
 /**
  *
@@ -26,7 +28,7 @@ public class DlCaixa extends javax.swing.JDialog {
         this.setSize(374, 348);
         this.setResizable(false);
         initComponents();
-        preencherDataAtual();
+        //valorVendas.setEditable(false);
     }
 
     /**
@@ -77,6 +79,11 @@ public class DlCaixa extends javax.swing.JDialog {
                 formWindowGainedFocus(evt);
             }
             public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
             }
         });
 
@@ -245,14 +252,30 @@ public class DlCaixa extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        // TODO add your handling code here:
-        preencherDataAtual();
+        //Double valor = vendasDoDia();
+        //valorVendas.setText(String.valueOf(valor));
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void caixaFinalAtingidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaFinalAtingidoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_caixaFinalAtingidoActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        preencherDataAtual();
+    }//GEN-LAST:event_formWindowActivated
+
+    public Double vendasDoDia(){
+        List<Venda> vendas = caixa.getVenda();
+        Double valor = 0.0;
+        for(Venda venda : vendas){
+            List<ProdutoVenda> produtoVenda = venda.getProdutoVenda();
+            for(ProdutoVenda pv : produtoVenda){
+                valor+=pv.getValor();
+            }
+        }
+        return valor;
+    }
+    
     public static Caixa getCaixa() {
         return caixa;
     }
