@@ -502,7 +502,18 @@ public class DlCliente extends javax.swing.JDialog {
         // TODO add your handling code here:
         int linha = tabelaCliente.getSelectedRow();
         if(linha>=0){
-            int i;
+            this.cliente = clienteATM.getCliente(linha);
+            nome.setText(cliente.getNome());
+            cpf.setText(cliente.getCpf());
+            data.setText(cliente.getDataNascimento().toString());
+            sexo.setSelectedItem(cliente.getSexo());
+            observacoes.setText(cliente.getObservacoes());
+            endereco.setText(cliente.getEndereco().getEndereco());
+            bairro.setText(cliente.getEndereco().getBairro());
+            num.setText(String.valueOf(cliente.getEndereco().getNumero()));
+            cidade.setText(cliente.getEndereco().getCidade());
+            email.setText(cliente.getEmail());
+            contato.setText(cliente.getContato());
         }
     }//GEN-LAST:event_editarActionPerformed
 
@@ -510,52 +521,13 @@ public class DlCliente extends javax.swing.JDialog {
         // TODO add your handling code here:
         int linha = tabelaCliente.getSelectedRow();
         if(linha>=0){
-            ((DefaultTableModel) tabelaCliente.getModel()).removeRow(linha);
+            this.cliente = clienteATM.getCliente(linha);
+            clienteATM.remover(linha);            
+            tabelaCliente.setModel(clienteATM);
+            GUIManager.getInstance().getDomainManager().removerCliente(this.cliente);
         }
     }//GEN-LAST:event_excluirActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DlCliente dialog = new DlCliente(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-    
     private char sexoSelecionado(String sex){
         switch (sex) {
             case "Masculino" -> {

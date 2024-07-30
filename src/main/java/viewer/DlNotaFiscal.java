@@ -4,12 +4,19 @@
  */
 package viewer;
 
+import control.GUIManager;
+import control.NotaFiscalAbstractTableModel;
+import java.util.List;
+import model.Venda;
+
 /**
  *
  * @author correia
  */
 public class DlNotaFiscal extends javax.swing.JDialog {
-
+    NotaFiscalAbstractTableModel notaFiscalATM;
+    Venda venda = null;
+    
     /**
      * Creates new form DlNotaFiscal
      */
@@ -18,6 +25,9 @@ public class DlNotaFiscal extends javax.swing.JDialog {
         this.setSize(534, 533);
         this.setResizable(false);
         initComponents();
+        
+        notaFiscalATM = new NotaFiscalAbstractTableModel();
+        tabelaNotaFiscal.setModel(notaFiscalATM);
     }
 
     /**
@@ -31,7 +41,7 @@ public class DlNotaFiscal extends javax.swing.JDialog {
 
         jToggleButton1 = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaNotaFiscal = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         retornarMenu = new javax.swing.JLabel();
@@ -49,17 +59,30 @@ public class DlNotaFiscal extends javax.swing.JDialog {
             public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
+        addWindowStateListener(new java.awt.event.WindowStateListener() {
+            public void windowStateChanged(java.awt.event.WindowEvent evt) {
+                formWindowStateChanged(evt);
+            }
+        });
 
-        jTable1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaNotaFiscal.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tabelaNotaFiscal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Data", "Cliente", "Valor"
+                "Data", "Cliente"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tabelaNotaFiscal);
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -135,51 +158,19 @@ public class DlNotaFiscal extends javax.swing.JDialog {
     }//GEN-LAST:event_retornarMenuMouseClicked
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        // TODO add your handling code here:
+        atualizarTabela();
     }//GEN-LAST:event_formWindowGainedFocus
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlNotaFiscal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlNotaFiscal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlNotaFiscal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlNotaFiscal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowStateChanged
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DlNotaFiscal dialog = new DlNotaFiscal(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    private void atualizarTabela(){
+        notaFiscalATM.removerTudo();
+        List<Venda> vendas = GUIManager.getInstance().getDomainManager().pesquisarVenda();
+        notaFiscalATM.adicionar(vendas);
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu3;
@@ -187,8 +178,8 @@ public class DlNotaFiscal extends javax.swing.JDialog {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel retornarMenu;
+    private javax.swing.JTable tabelaNotaFiscal;
     // End of variables declaration//GEN-END:variables
 }

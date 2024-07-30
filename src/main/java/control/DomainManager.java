@@ -46,6 +46,10 @@ public class DomainManager {
         return genDao.listar(Cliente.class);
     }
     
+    public void removerCliente(Cliente cliente){
+        genDao.excluir(cliente);
+    }
+    
     public void alterarCliente(Integer id, String nome, String cpf, Endereco endereco, char sexo, String email, Date dataNascimento, String contato, String observacoes){
         Cliente cliente = new Cliente(id, nome, cpf, endereco, sexo, email, dataNascimento, contato, observacoes);
         genDao.alterar(cliente);
@@ -163,6 +167,10 @@ public class DomainManager {
     
     public void alterarVenda(Venda venda){
         genDao.alterar(venda);
+    }
+    
+    public List<Venda> pesquisarVenda(){
+        return genDao.listar(Venda.class);
     }
     
     //------------Pagamento-------------
