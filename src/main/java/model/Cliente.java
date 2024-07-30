@@ -4,11 +4,9 @@
  */
 package model;
 
-import dao.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.annotation.processing.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -79,6 +77,21 @@ public class Cliente implements Serializable {
         this.dataNascimento = dataNascimento;
         this.contato = contato;
         this.observacoes = observacoes;
+    }
+
+    public Cliente(String nome, String cpf, Endereco endereco, char sexo, String email, Date dataNascimento, String contato) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.endereco = endereco;
+        this.sexo = sexo;
+        this.email = email;
+        this.dataNascimento = dataNascimento;
+        this.contato = contato;
+    }
+
+    public Cliente(String nome, String email) {
+        this.nome = nome;
+        this.email = email;
     }
 
     
@@ -153,6 +166,9 @@ public class Cliente implements Serializable {
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return nome + " ("+ this.observacoes + ")";
+    }
 }

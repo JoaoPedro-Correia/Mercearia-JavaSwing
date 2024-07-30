@@ -266,6 +266,7 @@ public class DlProduto extends javax.swing.JDialog {
         byte[] foto = FuncoesUteis.IconToBytes(lblFoto.getIcon());
         
         Produto produto = GUIManager.getInstance().getDomainManager().inserirProduto(txtProduto, valPreco, txtObservacao, txtCategoria, foto);
+        produtoATM.adicionar(produto);
         limparJanela();
     }//GEN-LAST:event_jButton2ActionPerformed
 

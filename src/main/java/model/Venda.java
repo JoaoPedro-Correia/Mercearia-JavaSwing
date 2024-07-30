@@ -4,11 +4,8 @@
  */
 package model;
 
-import dao.*;
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -46,6 +43,16 @@ public class Venda implements Serializable {
     public Venda() {
     }
 
+    public Venda(Caixa id_caixa) {
+        this.id_caixa = id_caixa;
+    }
+
+    public Venda(Caixa id_caixa, Pagamento id_pagamento, Cliente id_cliente) {
+        this.id_caixa = id_caixa;
+        this.id_pagamento = id_pagamento;
+        this.id_cliente = id_cliente;
+    }
+    
     public Venda(Integer id, Caixa id_caixa, Pagamento id_pagamento, Cliente id_cliente) {
         this.id = id;
         this.id_caixa = id_caixa;

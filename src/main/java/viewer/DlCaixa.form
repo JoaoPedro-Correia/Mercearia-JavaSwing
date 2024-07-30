@@ -183,7 +183,7 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="botaoOk">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Fechar"/>
+        <Property name="text" type="java.lang.String" value="Abrir"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoOkActionPerformed"/>

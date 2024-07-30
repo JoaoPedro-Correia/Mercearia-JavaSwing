@@ -42,6 +42,11 @@ public class Caixa implements Serializable {
      @OneToMany (mappedBy = "id_caixa", fetch = FetchType.LAZY)
     private List<Venda> venda;
 
+    public Caixa(Double caixa_ini, Date data) {
+        this.caixa_ini = caixa_ini;
+        this.data = data;
+    }
+
     public Caixa(Double caixa_ini, Double caixa_fin, Double caixa_fin_previsto, Date data) {
         this.caixa_ini = caixa_ini;
         this.caixa_fin = caixa_fin;

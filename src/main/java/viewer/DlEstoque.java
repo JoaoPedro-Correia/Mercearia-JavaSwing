@@ -63,6 +63,11 @@ public class DlEstoque extends javax.swing.JDialog {
             public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         retornarMenuInicial.setIcon(new javax.swing.ImageIcon("/home/correia/NetBeansProjects/Mercearia/src/main/resources/imagens/icons8-home-25.png")); // NOI18N
         retornarMenuInicial.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -275,8 +280,12 @@ public class DlEstoque extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        carregarDados();
+
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowActivated
 
     private void carregarDados(){
         List<Estoque> list = GUIManager.getInstance().getDomainManager().pesquisarEstoque();

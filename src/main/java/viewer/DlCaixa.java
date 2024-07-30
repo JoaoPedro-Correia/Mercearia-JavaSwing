@@ -17,7 +17,7 @@ import model.Caixa;
  * @author correia
  */
 public class DlCaixa extends javax.swing.JDialog {
-
+    private static Caixa caixa;
     /**
      * Creates new form DlCaixa
      */
@@ -97,7 +97,7 @@ public class DlCaixa extends javax.swing.JDialog {
 
         jLabel6.setText("Caixa Final");
 
-        botaoOk.setText("Fechar");
+        botaoOk.setText("Abrir");
         botaoOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoOkActionPerformed(evt);
@@ -138,30 +138,29 @@ public class DlCaixa extends javax.swing.JDialog {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(valorVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(72, 72, 72)
-                                    .addComponent(jButton1)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(37, 37, 37)
-                                    .addComponent(caixaFinalAtingido))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(18, 18, 18)
-                            .addComponent(dataAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(retornarMenuInicial)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(26, 26, 26)
-                            .addComponent(caixaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(botaoOk))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(jButton1)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(caixaFinalAtingido))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(dataAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(retornarMenuInicial)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(26, 26, 26)
+                        .addComponent(caixaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoOk)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -203,21 +202,29 @@ public class DlCaixa extends javax.swing.JDialog {
 
     private void botaoOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoOkActionPerformed
         // TODO add your handling code here:
-        if(!caixaInicial.getText().isEmpty()){
-            botaoOk.setEnabled(false);
-            caixaInicial.setEditable(false);
-        }else{
-            JOptionPane.showMessageDialog(this, "Você precisa definir o caixa inicial antes de feicha-lo");
+        try {
+            if(!caixaInicial.getText().isEmpty()){
+                botaoOk.setEnabled(false);
+                caixaInicial.setEditable(false);
+                this.caixa = GUIManager.getInstance().getDomainManager().inserirCaixa(FuncoesUteis.strToDate(dataAtual.getText()), Double.valueOf(caixaInicial.getText()));
+            }else{
+                botaoOk.setSelected(false);
+                JOptionPane.showMessageDialog(this, "Você precisa definir o caixa inicial antes de feicha-lo");
+            }
+        } catch (ParseException ex) {
+            caixaInicial.setEditable(true);
+            botaoOk.setEnabled(true);
+            botaoOk.setSelected(false);
+            JOptionPane.showMessageDialog(this, "Erro ao abrir o Caixa");
         }
     }//GEN-LAST:event_botaoOkActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Date data;
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         if(botaoOk.isSelected()){
             try {
-                data = formato.parse(dataAtual.getText());
+                data = FuncoesUteis.strToDate(dataAtual.getText());
                 //caixa inicial
                 Double ci = Double.valueOf(caixaInicial.getText());
                 //caixa final previsto
@@ -225,8 +232,8 @@ public class DlCaixa extends javax.swing.JDialog {
                 Double cfp = venda+ci;
                 //caixa final obtido
                 Double cfo = Double.valueOf(caixaFinalAtingido.getText());
-
-                Caixa caixa = GUIManager.getInstance().getDomainManager().inserirCaixa(data, ci, cfp, cfo);
+                                
+                GUIManager.getInstance().getDomainManager().alterarCaixa(this.caixa.getId(), data, ci, cfp, cfo);
                 resetWindow();
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, "Erro para armaenar data atual! "+ex);
@@ -246,46 +253,8 @@ public class DlCaixa extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_caixaFinalAtingidoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlCaixa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlCaixa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlCaixa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlCaixa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DlCaixa dialog = new DlCaixa(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    public static Caixa getCaixa() {
+        return caixa;
     }
     
     private void preencherDataAtual(){

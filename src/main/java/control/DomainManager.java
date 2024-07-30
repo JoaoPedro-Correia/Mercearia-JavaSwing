@@ -39,6 +39,12 @@ public class DomainManager {
         return cliente;
     }
     
+    public Cliente inserirCliente(String nome, String email){
+        Cliente cliente = new Cliente(nome, email);
+        genDao.inserir(cliente);
+        return cliente;
+    }
+    
     public List<Cliente> pesquisarCliente(){
         return genDao.listar(Cliente.class);
     }
@@ -93,14 +99,15 @@ public class DomainManager {
     }
 
     //-----------Produto-----------
+    //Inserir SEM Imagem
     public Produto inserirProduto(String nome, Double valor, String obsString, Categoria categoria){
-        //Produto produto = new Produto(nome, valor, obsString, categoria);
-        Produto produto = new Produto(nome, valor, obsString, imagemGenerica(),categoria);
+        Produto produto = new Produto(nome, valor, obsString, FuncoesUteis.imagemGenerica(),categoria);
         genDao.inserir(produto);
         return produto;
     }
     
-     public Produto inserirProduto(String nome, Double valor, String obsString, Categoria categoria, byte[] foto){
+    //Inserir COM Imagem
+    public Produto inserirProduto(String nome, Double valor, String obsString, Categoria categoria, byte[] foto){
         Produto produto = new Produto(nome, valor, obsString, foto, categoria);
         genDao.inserir(produto);
         return produto;
@@ -110,7 +117,7 @@ public class DomainManager {
         return genDao.listar(Produto.class);
     }
     
-    public void updateProduto(Produto produto){
+    public void alterarProduto(Produto produto){
         genDao.alterar(produto);
     }
     
@@ -119,6 +126,17 @@ public class DomainManager {
         Caixa caixa = new Caixa(caixaInicial, caixaFinalObtido, caixaFinalPrevisto, dataAtual);
         genDao.inserir(caixa);
         return caixa;
+    }
+    
+    public Caixa inserirCaixa(Date dataAtual, Double caixaInicial){
+        Caixa caixa = new Caixa(caixaInicial, dataAtual);
+        genDao.inserir(caixa);
+        return caixa;
+    }
+    
+    public void alterarCaixa(Integer id, Date dataAtual, Double caixaInicial, Double caixaFinalPrevisto, Double caixaFinalObtido){
+        Caixa caixa = new Caixa(id, caixaInicial, caixaFinalObtido, caixaFinalPrevisto, dataAtual);
+        genDao.alterar(caixa);
     }
     
     //-------------Estoque---------------
@@ -132,11 +150,22 @@ public class DomainManager {
         return genDao.listar(Estoque.class);
     }
 
+    //-------------Produto Venda---------------
+    public ProdutoVenda inserirProdutoVenda(Integer qntd, Produto prod, Venda vend){
+        ProdutoVenda produtoV = new ProdutoVenda(qntd, prod.getValor(), prod, vend);
+        genDao.inserir(produtoV);
+        return produtoV;
+    }    
+
+    //------------Venda-------------
+    public Venda inserirVenda(Caixa caixa){
+        Venda venda = new Venda(caixa);
+        genDao.inserir(venda);
+        return venda;
+    }
     
-    //------------FUNCOES EXTRAS--------------
-    private byte[] imagemGenerica(){
-        JFileChooser jan = new JFileChooser();
-        Icon foto = jan.getIcon(new File("pineapple-50.png"));
-        return FuncoesUteis.IconToBytes(foto);
+    //------------Query-------------
+    public List minhaQuery(String query){
+        return genDao.selectQuery(query);
     }
 }

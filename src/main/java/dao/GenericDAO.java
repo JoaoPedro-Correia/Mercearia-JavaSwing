@@ -8,8 +8,11 @@ package dao;
 import java.util.List;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.security.auth.login.LoginException;
+import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
+import viewer.JFrMenuInicial;
 
 /**
  *
@@ -27,7 +30,7 @@ public class GenericDAO {
 
             //OPERAÇÕES
             sessao.save(obj);
-
+            
             sessao.getTransaction().commit();              
             sessao.close();
         } catch( HibernateException erro) {
@@ -166,4 +169,27 @@ public class GenericDAO {
 
     }
     
+    public List selectQuery(String query) throws HibernateException {
+        Session sessao = null;
+        List result;
+        
+        try {
+            sessao = ConexaoHibernate.getSessionFactory().openSession();
+            sessao.beginTransaction();
+
+            //OPERAÇÕES
+            Query obj = sessao.createQuery(query);
+            result = obj.list();
+            
+            sessao.getTransaction().commit();              
+            sessao.close();
+        } catch( HibernateException erro) {
+            if ( sessao != null ){
+                sessao.getTransaction().rollback();
+                sessao.close();
+            }
+            throw new HibernateException(erro);
+        }
+        return result;
+    }
 }

@@ -6,13 +6,16 @@ package viewer;
 
 import javax.swing.JOptionPane;
 import control.GUIManager;
+import java.util.List;
+import model.Cliente;
+import org.hibernate.hql.internal.ast.QuerySyntaxException;
 
 /**
  *
  * @author correia
  */
 public class JFrMenuInicial extends javax.swing.JFrame {
-
+    private Cliente semCadastro=null;
     /**
      * Creates new form MenuInicial
      */
@@ -20,6 +23,7 @@ public class JFrMenuInicial extends javax.swing.JFrame {
         this.setSize(520,800);
         this.setResizable(false);
         initComponents();
+        criarClienteSemCadastro();
     }
 
     /**
@@ -50,6 +54,11 @@ public class JFrMenuInicial extends javax.swing.JFrame {
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFocusCycleRoot(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -294,6 +303,20 @@ public class JFrMenuInicial extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_botaoSairMouseClicked
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowActivated
+
+    private void criarClienteSemCadastro(){
+        try{
+            List<String> mestre = GUIManager.getInstance().getDomainManager().minhaQuery("FROM Cliente WHERE NOME='Sem Cadastro'");
+            if(mestre.isEmpty()){
+                 //this.semCadastro = GUIManager.getInstance().getDomainManager().inserirCliente("Sem Cadastro", "e@e");
+            }
+        }catch(QuerySyntaxException ex){
+            JOptionPane.showMessageDialog(this, "Erro de Querry: "+ex);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botaoCaixa;

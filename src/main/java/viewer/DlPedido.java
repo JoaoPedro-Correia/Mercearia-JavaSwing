@@ -199,7 +199,7 @@ public class DlPedido extends javax.swing.JDialog {
             
             //atualiza quantidade do produto
             produto.addQntd(quantidade);
-            GUIManager.getInstance().getDomainManager().updateProduto(produto);
+            GUIManager.getInstance().getDomainManager().alterarProduto(produto);
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao pegar elementos");
         }
