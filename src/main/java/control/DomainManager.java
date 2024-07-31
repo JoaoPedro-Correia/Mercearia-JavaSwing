@@ -88,6 +88,10 @@ public class DomainManager {
         genDao.alterar(fornecedor);
     }
     
+    public void removerFornecedor(Fornecedor fornecedor){
+        genDao.excluir(fornecedor);
+    }
+    
     //-----------Categoria-----------
     public Categoria inserirCategoria(String desricao){
         Categoria categoria = new Categoria(desricao);
@@ -99,6 +103,9 @@ public class DomainManager {
         return genDao.listar(Categoria.class);
     }
 
+    public void removerCategoria(Categoria categoria){
+        genDao.excluir(categoria);
+    }
     //-----------Produto-----------
     //Inserir SEM Imagem
     public Produto inserirProduto(String nome, Double valor, String obsString, Categoria categoria){
@@ -112,6 +119,10 @@ public class DomainManager {
         Produto produto = new Produto(nome, valor, obsString, foto, categoria);
         genDao.inserir(produto);
         return produto;
+    }
+    
+    public void alterarCategoria(Categoria categoria){
+        genDao.alterar(categoria);
     }
      
     public List<Produto> pesquisarProduto(){
@@ -157,6 +168,10 @@ public class DomainManager {
         genDao.inserir(produtoV);
         return produtoV;
     }    
+    
+    public void removerProdutoVenda(ProdutoVenda produtoVenda){
+        genDao.excluir(produtoVenda);
+    }
 
     //------------Venda-------------
     public Venda inserirVenda(Caixa caixa){

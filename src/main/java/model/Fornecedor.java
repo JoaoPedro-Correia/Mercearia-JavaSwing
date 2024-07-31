@@ -101,6 +101,14 @@ public class Fornecedor implements Serializable{
         return observacoes;
     }
 
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public List<Estoque> getEstoque() {
+        return estoque;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }

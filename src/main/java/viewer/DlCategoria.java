@@ -7,8 +7,9 @@ package viewer;
 import control.CategoriaAbstractTableModel;
 import control.GUIManager;
 import java.util.List;
+import javax.persistence.PersistenceException;
+import javax.swing.JOptionPane;
 import model.Categoria;
-import model.Cliente;
 
 /**
  *
@@ -16,6 +17,7 @@ import model.Cliente;
  */
 public class DlCategoria extends javax.swing.JDialog {
     private CategoriaAbstractTableModel categoriaATM;
+    private Categoria categoria=null;
     /**
      * Creates new form DlCaixa
      */
@@ -42,6 +44,9 @@ public class DlCategoria extends javax.swing.JDialog {
         jToggleButton1 = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        excluir = new javax.swing.JMenuItem();
+        editar = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         descricao = new javax.swing.JTextField();
@@ -67,6 +72,22 @@ public class DlCategoria extends javax.swing.JDialog {
         );
 
         jTextField2.setText("jTextField2");
+
+        excluir.setText("Excluir");
+        excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(excluir);
+
+        editar.setText("Editar");
+        editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(editar);
 
         jLabel1.setText("Descrição");
 
@@ -112,6 +133,7 @@ public class DlCategoria extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
+        tabelaCategoria.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setViewportView(tabelaCategoria);
 
         jMenu3.setText("File");
@@ -173,15 +195,42 @@ public class DlCategoria extends javax.swing.JDialog {
         // TODO add your handling code here:
         String catDescricao = descricao.getText();
         
-        Categoria categoria = GUIManager.getInstance().getDomainManager().inserirCategoria(catDescricao);
-        categoriaATM.adicionar(categoria);
-        
+        if(this.categoria==null){
+            Categoria categoria = GUIManager.getInstance().getDomainManager().inserirCategoria(catDescricao);
+            categoriaATM.adicionar(categoria);
+        }else{
+            this.categoria.setNome_categoria(catDescricao);
+            GUIManager.getInstance().getDomainManager().alterarCategoria(categoria);
+            categoriaATM.setLista(GUIManager.getInstance().getDomainManager().pesquisarCategoria());
+        }
         descricao.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void descricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descricaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_descricaoActionPerformed
+
+    private void excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirActionPerformed
+        int linha = tabelaCategoria.getSelectedRow();
+        if(linha>=0){
+            try{
+                this.categoria = categoriaATM.getCategorias(linha);
+                GUIManager.getInstance().getDomainManager().removerCategoria(this.categoria);
+                categoriaATM.remover(linha);            
+                tabelaCategoria.setModel(categoriaATM);
+            }catch(PersistenceException ex){
+                JOptionPane.showMessageDialog(this, "Categoria é exportada " + ex);
+            }
+        }
+    }//GEN-LAST:event_excluirActionPerformed
+
+    private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+        int linha = tabelaCategoria.getSelectedRow();
+        if(linha>=0){
+            this.categoria = categoriaATM.getCategorias(linha);
+            descricao.setText(this.categoria.getNome_categoria());
+        }
+    }//GEN-LAST:event_editarActionPerformed
 
     private void carregarDados(){
         List<Categoria> list = GUIManager.getInstance().getDomainManager().pesquisarCategoria();
@@ -235,6 +284,8 @@ public class DlCategoria extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField descricao;
+    private javax.swing.JMenuItem editar;
+    private javax.swing.JMenuItem excluir;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
@@ -242,6 +293,7 @@ public class DlCategoria extends javax.swing.JDialog {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JToggleButton jToggleButton1;

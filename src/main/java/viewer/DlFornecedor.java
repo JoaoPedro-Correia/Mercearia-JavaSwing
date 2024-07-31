@@ -82,6 +82,11 @@ public class DlFornecedor extends javax.swing.JDialog {
         jPopupMenu1.add(editar);
 
         excluir.setText("Excluir");
+        excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirActionPerformed(evt);
+            }
+        });
         jPopupMenu1.add(excluir);
 
         jLabel1.setText("CNPJ");
@@ -89,7 +94,7 @@ public class DlFornecedor extends javax.swing.JDialog {
         jLabel2.setText("Nome Social");
 
         textNome.setToolTipText("");
-        textNome.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        textNome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         textNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textNomeActionPerformed(evt);
@@ -278,6 +283,7 @@ public class DlFornecedor extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
+        tabelaFornecedor.setComponentPopupMenu(jPopupMenu1);
         jScrollPane2.setViewportView(tabelaFornecedor);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 102));
@@ -364,12 +370,14 @@ public class DlFornecedor extends javax.swing.JDialog {
             end = GUIManager.getInstance().getDomainManager().inserirEndereco(tipoEndereco, tipoBairro, tipoCidade, num);
             Fornecedor forn = GUIManager.getInstance().getDomainManager().inserirFornecedor(end, tipoCnpj, tipoEmail, tipoCotato, tipoObs, tipoNome);
             fornecedorATM.adicionar(forn);
-            limparCampos();
         } else {
             // ALTERAR
             GUIManager.getInstance().getDomainManager().alterarEndereco(fornEndereco.getId(), tipoBairro, tipoBairro, tipoCidade, num);
-            GUIManager.getInstance().getDomainManager().alterarFornecedor(num, fornEndereco, tipoCnpj, tipoEmail, tipoCotato, tipoObs, tipoNome);
+            GUIManager.getInstance().getDomainManager().alterarFornecedor(fornecedor.getId(), fornEndereco, tipoCnpj, tipoEmail, tipoCotato, tipoObs, tipoNome);
+            fornecedorATM.setLista(GUIManager.getInstance().getDomainManager().pesquisarFornecedor());
         }
+        limparCampos();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void textObsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textObsActionPerformed
@@ -393,50 +401,31 @@ public class DlFornecedor extends javax.swing.JDialog {
     }//GEN-LAST:event_jPanel2MouseClicked
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-        // TODO add your handling code here:
+        int linha = tabelaFornecedor.getSelectedRow();
+        if(linha>=0){
+            this.fornecedor = fornecedorATM.getFornecedor(linha);
+            this.fornEndereco = this.fornecedor.getEndereco();
+            textNome.setText(fornecedor.getNome_social());
+            textCnpj.setText(fornecedor.getCnpj());
+            textObs.setText(fornecedor.getObservacoes());
+            textEnd.setText(fornecedor.getEndereco().getEndereco());
+            textBairro.setText(fornecedor.getEndereco().getBairro());
+            textNum.setText(String.valueOf(fornecedor.getEndereco().getNumero()));
+            textCidade.setText(fornecedor.getEndereco().getCidade());
+            textEmail.setText(fornecedor.getEmail());
+            textContato.setText(fornecedor.getContato());
+        }
     }//GEN-LAST:event_editarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirActionPerformed
+        int linha = tabelaFornecedor.getSelectedRow();
+        if(linha>=0){
+            this.fornecedor = fornecedorATM.getFornecedor(linha);
+            fornecedorATM.remover(linha);            
+            tabelaFornecedor.setModel(fornecedorATM);
+            GUIManager.getInstance().getDomainManager().removerFornecedor(this.fornecedor);
         }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DlFornecedor dialog = new DlFornecedor(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_excluirActionPerformed
     
     private void limparCampos() {
         textNome.setText("");

@@ -68,8 +68,18 @@ public class ProdutoVendaAbstractTableModel extends AbstractTableModel {
         listaItens.clear();
     }
 
-    public ProdutoVenda getCategorias(int linha) {
+    public ProdutoVenda getProdutoVenda(int linha) {
         return listaItens.get(linha);
+    }
+    
+    public Double getValorTotal(){
+        Double valor=0.0;
+        
+            for(ProdutoVenda produto : listaItens){
+                valor+=produto.getValor()*produto.getQntd();
+            }
+
+        return valor;
     }
     
     public void setLista(List<ProdutoVenda> novaLista) {

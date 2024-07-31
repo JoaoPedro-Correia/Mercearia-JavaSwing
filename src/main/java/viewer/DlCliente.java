@@ -460,6 +460,7 @@ public class DlCliente extends javax.swing.JDialog {
                 // ALTERAR
                 GUIManager.getInstance().getDomainManager().alterarEndereco(cliEndereco.getId(), tipoBairro, tipoBairro, tipoCidade, num);
                 GUIManager.getInstance().getDomainManager().alterarCliente(cliente.getId(),tipoNome, tipoCpf, end, tipoSexo, tipoEmail, nasc, tipoCotato, tipoObs);
+                clienteATM.setLista(GUIManager.getInstance().getDomainManager().pesquisarCliente());
             }
             limparTela();
         } catch (ParseException ex) {
@@ -503,6 +504,7 @@ public class DlCliente extends javax.swing.JDialog {
         int linha = tabelaCliente.getSelectedRow();
         if(linha>=0){
             this.cliente = clienteATM.getCliente(linha);
+            this.cliEndereco = this.cliente.getEndereco();
             nome.setText(cliente.getNome());
             cpf.setText(cliente.getCpf());
             data.setText(cliente.getDataNascimento().toString());

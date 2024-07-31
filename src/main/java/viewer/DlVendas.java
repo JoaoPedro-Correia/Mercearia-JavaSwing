@@ -9,7 +9,6 @@ import control.GUIManager;
 import control.ProdutoVendaAbstractTableModel;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
 import model.Caixa;
 import model.Cliente;
 import model.Pagamento;
@@ -25,6 +24,7 @@ public class DlVendas extends javax.swing.JDialog {
     private Venda venda=null;
     private Caixa caixa=null;
     private ProdutoVendaAbstractTableModel produtoVATM;
+    private ProdutoVenda produtoVenda=null;
     
     /** Creates new form DlVendas */
     public DlVendas(java.awt.Frame parent, boolean modal) {
@@ -44,6 +44,9 @@ public class DlVendas extends javax.swing.JDialog {
     private void initComponents() {
 
         pagamento = new javax.swing.ButtonGroup();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        editar = new javax.swing.JMenuItem();
+        excluir = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -65,6 +68,22 @@ public class DlVendas extends javax.swing.JDialog {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+
+        editar.setText("Editar");
+        editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(editar);
+
+        excluir.setText("Excluir");
+        excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(excluir);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
@@ -103,6 +122,7 @@ public class DlVendas extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
+        tabelaVenda.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setViewportView(tabelaVenda);
 
         jLabel3.setText("Valor Total");
@@ -259,8 +279,7 @@ public class DlVendas extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(3, 3, 3)
-                                .addComponent(jLabel2)
-                                .addGap(3, 3, 3))
+                                .addComponent(jLabel2))
                             .addComponent(jsQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbAdicionar)))
@@ -293,7 +312,7 @@ public class DlVendas extends javax.swing.JDialog {
         Integer quantidade = (Integer) jsQuantidade.getValue();
         ProdutoVenda produtoVenda = GUIManager.getInstance().getDomainManager().inserirProdutoVenda(quantidade, produto, this.venda);
         
-        alterarValorTotal(produtoVenda);
+        adicionarValorTotal(produtoVenda);
         produtoVATM.adicionar(produtoVenda);
         jsQuantidade.setValue(0);
     }//GEN-LAST:event_jbAdicionarActionPerformed
@@ -326,6 +345,22 @@ public class DlVendas extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Selecione a forma de pagamento para concluir a compra!");   
         }
     }//GEN-LAST:event_jbFinalizarActionPerformed
+
+    private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_editarActionPerformed
+
+    private void excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirActionPerformed
+        int linha = tabelaVenda.getSelectedRow();
+        if(linha>=0){
+            this.produtoVenda = produtoVATM.getProdutoVenda(linha);
+            GUIManager.getInstance().getDomainManager().removerProdutoVenda(this.produtoVenda);
+            produtoVATM.remover(linha);            
+            tabelaVenda.setModel(produtoVATM);
+            atualizarValorTotal();
+        }
+    }//GEN-LAST:event_excluirActionPerformed
 
     private Pagamento buscaPagamento(int mnemonic){
         List<Pagamento> pg = GUIManager.getInstance().getDomainManager().pesquisarPagamento();
@@ -383,7 +418,7 @@ public class DlVendas extends javax.swing.JDialog {
         carregarComboCliente();
     }
     
-    private boolean quantidadeCompradaValida(Produto produto, Integer qntd){
+    private boolean removerDoEstoque(Produto produto, Integer qntd){
         if(qntd<=produto.getQntd()){
             produto.setQntd(produto.getQntd()-qntd);
             return true;
@@ -391,9 +426,14 @@ public class DlVendas extends javax.swing.JDialog {
         return false;
     }
     
-    private void alterarValorTotal(ProdutoVenda proV){
+    private void adicionarValorTotal(ProdutoVenda proV){
         Double val = Double.valueOf(txtValorTotal.getText());
         val+=(proV.getQntd()*proV.getValor());
+        txtValorTotal.setText(String.valueOf(val));
+    }
+    
+    private void atualizarValorTotal(){
+        Double val = produtoVATM.getValorTotal();
         txtValorTotal.setText(String.valueOf(val));
     }
     
@@ -403,6 +443,8 @@ public class DlVendas extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem editar;
+    private javax.swing.JMenuItem excluir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -411,6 +453,7 @@ public class DlVendas extends javax.swing.JDialog {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbAdicionar;
     private javax.swing.JButton jbFinalizar;
