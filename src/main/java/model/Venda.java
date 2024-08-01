@@ -98,6 +98,10 @@ public class Venda implements Serializable {
         return id_pagamento;
     }
 
+    public void setProdutoVenda(List<ProdutoVenda> produtoVenda) {
+        this.produtoVenda = produtoVenda;
+    }
+
     public List<ProdutoVenda> getProdutoVenda() {
         return produtoVenda;
     }

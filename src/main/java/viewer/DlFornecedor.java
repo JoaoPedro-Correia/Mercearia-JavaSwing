@@ -372,12 +372,13 @@ public class DlFornecedor extends javax.swing.JDialog {
             fornecedorATM.adicionar(forn);
         } else {
             // ALTERAR
-            GUIManager.getInstance().getDomainManager().alterarEndereco(fornEndereco.getId(), tipoBairro, tipoBairro, tipoCidade, num);
-            GUIManager.getInstance().getDomainManager().alterarFornecedor(fornecedor.getId(), fornEndereco, tipoCnpj, tipoEmail, tipoCotato, tipoObs, tipoNome);
-            fornecedorATM.setLista(GUIManager.getInstance().getDomainManager().pesquisarFornecedor());
+            GUIManager.getInstance().getDomainManager().alterarEndereco(this.fornEndereco.getId(), tipoBairro, tipoBairro, tipoCidade, num);
+            GUIManager.getInstance().getDomainManager().alterarFornecedor(this.fornecedor.getId(), fornEndereco, tipoCnpj, tipoEmail, tipoCotato, tipoObs, tipoNome);
+            atualizarTabelaFornecedor();
+            this.fornEndereco=null;
+            this.fornecedor=null;
         }
         limparCampos();
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void textObsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textObsActionPerformed
@@ -442,6 +443,10 @@ public class DlFornecedor extends javax.swing.JDialog {
     private void carregarDados(){
         List<Fornecedor> list = GUIManager.getInstance().getDomainManager().pesquisarFornecedor();
         fornecedorATM.adicionar(list);
+    }
+    
+    private void atualizarTabelaFornecedor(){
+        fornecedorATM.setLista(GUIManager.getInstance().getDomainManager().pesquisarFornecedor());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

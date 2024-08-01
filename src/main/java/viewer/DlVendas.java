@@ -22,7 +22,7 @@ import model.Venda;
  */
 public class DlVendas extends javax.swing.JDialog {
     private Venda venda=null;
-    private Caixa caixa=null;
+    private Caixa caixa=DlCaixa.getCaixa();
     private ProdutoVendaAbstractTableModel produtoVATM;
     private ProdutoVenda produtoVenda=null;
     
@@ -32,8 +32,7 @@ public class DlVendas extends javax.swing.JDialog {
         this.setSize(519, 547);
         this.setResizable(true);
         initComponents();
-
-        carregarObjetoCaixa();
+        
         produtoVATM = new ProdutoVendaAbstractTableModel();
         tabelaVenda.setModel(produtoVATM);
         txtValorTotal.setEditable(false);
@@ -45,7 +44,6 @@ public class DlVendas extends javax.swing.JDialog {
 
         pagamento = new javax.swing.ButtonGroup();
         jPopupMenu1 = new javax.swing.JPopupMenu();
-        editar = new javax.swing.JMenuItem();
         excluir = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -68,14 +66,6 @@ public class DlVendas extends javax.swing.JDialog {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-
-        editar.setText("Editar");
-        editar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editarActionPerformed(evt);
-            }
-        });
-        jPopupMenu1.add(editar);
 
         excluir.setText("Excluir");
         excluir.addActionListener(new java.awt.event.ActionListener() {
@@ -303,17 +293,22 @@ public class DlVendas extends javax.swing.JDialog {
     }//GEN-LAST:event_retornarMenuInicialMouseClicked
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        carregarObjetoCaixa();
         carregaDados();
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAdicionarActionPerformed
         Produto produto = (Produto) jcbProduto.getSelectedItem();
         Integer quantidade = (Integer) jsQuantidade.getValue();
-        ProdutoVenda produtoVenda = GUIManager.getInstance().getDomainManager().inserirProdutoVenda(quantidade, produto, this.venda);
         
-        adicionarValorTotal(produtoVenda);
-        produtoVATM.adicionar(produtoVenda);
+        if(this.produtoVenda==null){
+            ProdutoVenda produtoV = GUIManager.getInstance().getDomainManager().inserirProdutoVenda(quantidade, produto, this.venda);
+            adicionarValorTotal(produtoV);
+            produtoVATM.adicionar(produtoV);
+        }else{
+            GUIManager.getInstance().getDomainManager().alterarProdutoVenda(quantidade, produto, this.venda);
+            this.produtoVenda=null;
+        }
+        
         jsQuantidade.setValue(0);
     }//GEN-LAST:event_jbAdicionarActionPerformed
 
@@ -345,11 +340,6 @@ public class DlVendas extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Selecione a forma de pagamento para concluir a compra!");   
         }
     }//GEN-LAST:event_jbFinalizarActionPerformed
-
-    private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_editarActionPerformed
 
     private void excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirActionPerformed
         int linha = tabelaVenda.getSelectedRow();
@@ -394,15 +384,6 @@ public class DlVendas extends javax.swing.JDialog {
         this.venda=GUIManager.getInstance().getDomainManager().inserirVenda(this.caixa);
     }
     
-    private void carregarObjetoCaixa(){
-        this.caixa = DlCaixa.getCaixa();
-        if(this.caixa==null){
-            JOptionPane.showMessageDialog(this, "Você precisa abrir o caixa antes de realizar alguma venda!");
-            this.setVisible(false);
-            GUIManager.getInstance().openWindowCaixa();
-        }
-    }
-    
     private void carregarComboProduto(){
         jcbProduto.removeAll();
         GUIManager.getInstance().carregarCombo(jcbProduto, Produto.class);
@@ -418,6 +399,8 @@ public class DlVendas extends javax.swing.JDialog {
         carregarComboCliente();
     }
     
+    //funcao que remove o produto vendido do estoque
+    //nao estou chamando ela para nao aumentar a complexidade, deixando o uso do sistema mais simples
     private boolean removerDoEstoque(Produto produto, Integer qntd){
         if(qntd<=produto.getQntd()){
             produto.setQntd(produto.getQntd()-qntd);
@@ -443,7 +426,6 @@ public class DlVendas extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem editar;
     private javax.swing.JMenuItem excluir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -11,7 +11,6 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 import model.Endereco;
 
@@ -460,7 +459,9 @@ public class DlCliente extends javax.swing.JDialog {
                 // ALTERAR
                 GUIManager.getInstance().getDomainManager().alterarEndereco(cliEndereco.getId(), tipoBairro, tipoBairro, tipoCidade, num);
                 GUIManager.getInstance().getDomainManager().alterarCliente(cliente.getId(),tipoNome, tipoCpf, end, tipoSexo, tipoEmail, nasc, tipoCotato, tipoObs);
-                clienteATM.setLista(GUIManager.getInstance().getDomainManager().pesquisarCliente());
+                atualizarTabelaCliente();
+                this.cliente=null;
+                this.cliEndereco=null;
             }
             limparTela();
         } catch (ParseException ex) {
@@ -483,6 +484,9 @@ public class DlCliente extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        this.cliente=null;
+        this.cliEndereco=null;
+        limparTela();
         this.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -508,7 +512,7 @@ public class DlCliente extends javax.swing.JDialog {
             nome.setText(cliente.getNome());
             cpf.setText(cliente.getCpf());
             data.setText(cliente.getDataNascimento().toString());
-            sexo.setSelectedItem(cliente.getSexo());
+            sexo.setSelectedItem(sexoSelecionado(cliente.getSexo()));
             observacoes.setText(cliente.getObservacoes());
             endereco.setText(cliente.getEndereco().getEndereco());
             bairro.setText(cliente.getEndereco().getBairro());
@@ -544,6 +548,20 @@ public class DlCliente extends javax.swing.JDialog {
         }
     }
     
+    private String sexoSelecionado(char sex){
+        switch (sex) {
+            case 'M' -> {
+                    return "Masculino";
+                }
+            case 'F' -> {
+                    return "Feiminino";
+                }
+            default -> {
+                    return "Outros";
+                }
+        }
+    }
+    
     private void limparTela() {
         nome.setText("");
         cpf.setText("");
@@ -560,6 +578,10 @@ public class DlCliente extends javax.swing.JDialog {
     private void carregarDados(){
         List<Cliente> list = GUIManager.getInstance().getDomainManager().pesquisarCliente();
         clienteATM.adicionar(list);
+    }
+    
+    private void atualizarTabelaCliente(){
+        clienteATM.setLista(GUIManager.getInstance().getDomainManager().pesquisarCliente());
     }
     
 

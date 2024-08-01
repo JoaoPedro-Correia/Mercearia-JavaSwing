@@ -48,6 +48,9 @@ public class DlProduto extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel4 = new javax.swing.JLabel();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        editar = new javax.swing.JMenuItem();
+        excluir = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -67,6 +70,17 @@ public class DlProduto extends javax.swing.JDialog {
         jButton3 = new javax.swing.JButton();
 
         jLabel4.setText("jLabel4");
+
+        editar.setText("Editar");
+        jPopupMenu1.add(editar);
+
+        excluir.setText("Excluir");
+        excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(excluir);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
@@ -196,6 +210,7 @@ public class DlProduto extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
+        tabelaProd.setComponentPopupMenu(jPopupMenu1);
         jScrollPane2.setViewportView(tabelaProd);
 
         jButton2.setBackground(new java.awt.Color(153, 255, 153));
@@ -254,6 +269,8 @@ public class DlProduto extends javax.swing.JDialog {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        this.produto=null;
+        limparJanela();
         this.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
         this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -304,6 +321,10 @@ public class DlProduto extends javax.swing.JDialog {
             mostrarFoto(imagem);
         }
     }//GEN-LAST:event_lblFotoMouseClicked
+
+    private void excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirActionPerformed
+        
+    }//GEN-LAST:event_excluirActionPerformed
     
     private void mostrarFoto(Icon ic) {
         // Redimensionar
@@ -372,6 +393,8 @@ public class DlProduto extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addCategoria;
     private javax.swing.JComboBox<String> categoria;
+    private javax.swing.JMenuItem editar;
+    private javax.swing.JMenuItem excluir;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -381,6 +404,7 @@ public class DlProduto extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblFoto;

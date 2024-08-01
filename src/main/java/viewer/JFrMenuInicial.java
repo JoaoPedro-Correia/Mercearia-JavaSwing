@@ -247,7 +247,13 @@ public class JFrMenuInicial extends javax.swing.JFrame {
 
     private void botaoVendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoVendasMouseClicked
         // TODO add your handling code here:
-        GUIManager.getInstance().openWindowVendas();
+        if(DlCaixa.getCaixa()!=null){
+            GUIManager.getInstance().openWindowVendas();
+        }else{
+            JOptionPane.showMessageDialog(this, "Você precisa abrir o caixa antes de realizar alguma venda!");
+            GUIManager.getInstance().openWindowCaixa();
+        }
+
     }//GEN-LAST:event_botaoVendasMouseClicked
 
     private void botaoEstoqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoEstoqueMouseClicked

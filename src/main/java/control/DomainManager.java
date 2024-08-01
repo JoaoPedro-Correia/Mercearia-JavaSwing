@@ -6,6 +6,7 @@ package control;
 
 import dao.ConexaoHibernate;
 import dao.GenericDAO;
+import dao.VendaDAO;
 import java.util.Date;
 import java.util.List;
 import model.*;
@@ -18,11 +19,13 @@ import org.postgresql.util.PSQLException;
  */
 public class DomainManager {
     private GenericDAO genDao;
-
+    private VendaDAO venDao;
+    
     public DomainManager() throws ClassNotFoundException, HibernateException, PSQLException {
         //ConnectionSQLDB.catchConnection();
         ConexaoHibernate.getSessionFactory();
         genDao = new GenericDAO();
+        venDao = new VendaDAO();
     }
     
     public List listar(Class classe) throws HibernateException  {
@@ -169,10 +172,19 @@ public class DomainManager {
         return produtoV;
     }    
     
+    public void alterarProdutoVenda(Integer qntd, Produto prod, Venda vend){
+        ProdutoVenda produtoV = new ProdutoVenda(qntd, prod.getValor(), prod, vend);
+        genDao.alterar(produtoV);
+    }    
+    
     public void removerProdutoVenda(ProdutoVenda produtoVenda){
         genDao.excluir(produtoVenda);
     }
-
+    
+    public List<ProdutoVenda> pesquisarProdutoVenda(){
+        return genDao.listar(ProdutoVenda.class);
+    }
+    
     //------------Venda-------------
     public Venda inserirVenda(Caixa caixa){
         Venda venda = new Venda(caixa);
@@ -186,6 +198,10 @@ public class DomainManager {
     
     public List<Venda> pesquisarVenda(){
         return genDao.listar(Venda.class);
+    }
+    
+    public void getProdutoVenda(Venda venda){
+        venDao.carregarProdutoVenda(venda);
     }
     
     //------------Pagamento-------------
