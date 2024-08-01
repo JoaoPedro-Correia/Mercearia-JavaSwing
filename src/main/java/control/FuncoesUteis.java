@@ -1,7 +1,9 @@
 package control;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +15,7 @@ import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
 /*
@@ -64,7 +67,24 @@ public class FuncoesUteis {
         } finally {
             return bFile;
         }
+    }
+    
+    public static Icon byteToIcon(byte[] imageData) {
+        if (imageData == null || imageData.length == 0) {
+            return null; // Return null if the byte array is empty or null
+        }
 
+        try {
+            // Convert byte array to InputStream
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(imageData);
+            // Read the image from the InputStream
+            Image image = ImageIO.read(inputStream);
+            // Create and return an ImageIcon
+            return new ImageIcon(image);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null; // Return null in case of an error
+        }
     }
     
     public static String dataAtual(){

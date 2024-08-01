@@ -72,6 +72,11 @@ public class DlProduto extends javax.swing.JDialog {
         jLabel4.setText("jLabel4");
 
         editar.setText("Editar");
+        editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarActionPerformed(evt);
+            }
+        });
         jPopupMenu1.add(editar);
 
         excluir.setText("Excluir");
@@ -281,9 +286,14 @@ public class DlProduto extends javax.swing.JDialog {
         Double valPreco =  Double.valueOf(preco.getText());
         String txtObservacao = observacoes.getText();
         byte[] foto = FuncoesUteis.IconToBytes(lblFoto.getIcon());
-        
-        Produto produto = GUIManager.getInstance().getDomainManager().inserirProduto(txtProduto, valPreco, txtObservacao, txtCategoria, foto);
-        produtoATM.adicionar(produto);
+        if(this.produto==null){
+            Produto produto = GUIManager.getInstance().getDomainManager().inserirProduto(txtProduto, valPreco, txtObservacao, txtCategoria, foto);
+            produtoATM.adicionar(produto);
+        }else{
+            GUIManager.getInstance().getDomainManager().alterarProduto(this.produto);
+            atualizarTabelaProduto();
+            this.produto=null;
+        }
         limparJanela();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -323,8 +333,28 @@ public class DlProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_lblFotoMouseClicked
 
     private void excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirActionPerformed
-        
+        int linha = tabelaProd.getSelectedRow();
+        if(linha>=0){
+            this.produto = produtoATM.getProduto(linha);
+            this.produtoATM.remover(linha);            
+            tabelaProd.setModel(produtoATM);
+            GUIManager.getInstance().getDomainManager().removerProduto(this.produto);
+            this.produto=null;
+        }        
     }//GEN-LAST:event_excluirActionPerformed
+
+    private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+        int linha = tabelaProd.getSelectedRow();
+        if(linha>=0){
+            this.produto = produtoATM.getProduto(linha);
+            produtoNome.setText(this.produto.getNome_produto());
+            categoria.setSelectedItem(this.produto.getCategoria());
+            preco.setText(String.valueOf(this.produto.getValor()));
+            observacoes.setText(this.produto.getObservacao());
+            lblFoto.setText("");
+            lblFoto.setIcon(FuncoesUteis.byteToIcon(this.produto.getFoto()));
+        }
+    }//GEN-LAST:event_editarActionPerformed
     
     private void mostrarFoto(Icon ic) {
         // Redimensionar
@@ -348,48 +378,10 @@ public class DlProduto extends javax.swing.JDialog {
         produtoATM.adicionar(list);
     }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DlProduto dialog = new DlProduto(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    private void atualizarTabelaProduto(){
+        produtoATM.setLista(GUIManager.getInstance().getDomainManager().pesquisarProduto());
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addCategoria;
     private javax.swing.JComboBox<String> categoria;

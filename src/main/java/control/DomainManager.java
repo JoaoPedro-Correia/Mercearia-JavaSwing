@@ -136,6 +136,10 @@ public class DomainManager {
         genDao.alterar(produto);
     }
     
+    public void removerProduto(Produto produto){
+        genDao.excluir(produto);
+    }
+    
     //-----------Caixa-----------
     public Caixa inserirCaixa(Date dataAtual, Double caixaInicial, Double caixaFinalPrevisto, Double caixaFinalObtido){
         Caixa caixa = new Caixa(caixaInicial, caixaFinalObtido, caixaFinalPrevisto, dataAtual);
