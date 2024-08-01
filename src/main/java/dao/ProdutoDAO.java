@@ -11,7 +11,6 @@ import model.Produto;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import viewer.DlVendas;
 
 /**
  *
