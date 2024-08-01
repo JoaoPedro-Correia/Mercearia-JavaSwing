@@ -1,29 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
-<jasperReport name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-    <background>
-        <band/>
-    </background>
-    <title>
-        <band height="79"/>
-    </title>
-    <pageHeader>
-        <band height="35"/>
-    </pageHeader>
-    <columnHeader>
-        <band height="61"/>
-    </columnHeader>
-    <detail>
-        <band height="125"/>
-    </detail>
-    <columnFooter>
-        <band height="45"/>
-    </columnFooter>
-    <pageFooter>
-        <band height="54"/>
-    </pageFooter>
-    <summary>
-        <band height="42"/>
-    </summary>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="555" pageHeight="802" columnWidth="535" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8021ab8d-85f1-477f-9224-3f6c96238968">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="id_caixa" class="model.Caixa">
+		<fieldDescription><![CDATA[id_caixa]]></fieldDescription>
+	</field>
+	<field name="id_cliente" class="model.Cliente">
+		<fieldDescription><![CDATA[id_cliente]]></fieldDescription>
+	</field>
+	<field name="id_pagamento" class="model.Pagamento">
+		<fieldDescription><![CDATA[id_pagamento]]></fieldDescription>
+	</field>
+	<field name="pagamento" class="model.Pagamento">
+		<fieldDescription><![CDATA[pagamento]]></fieldDescription>
+	</field>
+	<field name="produtoVenda" class="java.util.List">
+		<fieldDescription><![CDATA[produtoVenda]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.String">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<variable name="id_cliente_1" class="java.lang.Integer" resetType="Column" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{id_cliente}]]></variableExpression>
+	</variable>
+	<variable name="id_cliente_2" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{id_cliente}]]></variableExpression>
+	</variable>
+	<variable name="id_cliente_3" class="java.lang.Integer" resetType="Column" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{id_cliente}]]></variableExpression>
+	</variable>
+	<variable name="id_1" class="java.lang.Integer" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{id}]]></variableExpression>
+	</variable>
+	<variable name="produtoVenda_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{produtoVenda}]]></variableExpression>
+	</variable>
+	<variable name="id_pagamento_1" class="java.lang.Integer" resetType="Column" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{id_pagamento}]]></variableExpression>
+	</variable>
+	<variable name="produtoVenda_2" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{produtoVenda}]]></variableExpression>
+	</variable>
+	<variable name="pagamento_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{pagamento}]]></variableExpression>
+	</variable>
+	<variable name="id_pagamento_2" class="java.lang.Integer" resetType="Column" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{id_pagamento}]]></variableExpression>
+	</variable>
+	<variable name="id_pagamento_3" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{id_pagamento}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="18" y="0" width="82" height="79" uuid="e8576ebe-b544-400b-834a-691e017d49b7"/>
+				<imageExpression><![CDATA["/home/correia/Picture/Photo/80292213.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="213" y="11" width="135" height="31" uuid="d7e10dce-68b8-466a-99ed-bf0f5ec5e0c7"/>
+				<textElement>
+					<font fontName="Monospaced" size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NEW STORE!]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="156" y="4" width="257" height="31" uuid="cd843440-1d75-4806-9861-f77c88269168"/>
+				<textElement>
+					<font fontName="Monospaced" size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE VENDAS]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="444" y="15" width="100" height="20" uuid="b6a69577-e3a4-4ba7-86bc-8c7fe9f93d86"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="94" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="74" width="100" height="20" uuid="71756742-590d-4c08-ac03-c7eb5407022d"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="74" width="100" height="20" uuid="76f7a1b8-e16f-4667-aca0-a87c9f7afc32"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="54" width="100" height="20" uuid="e1700d89-1ce7-48b1-8431-349780901d63"/>
+				<textFieldExpression><![CDATA[""+$F{produtoVenda}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Column">
+				<reportElement x="200" y="74" width="100" height="20" uuid="b5067fb2-0d61-4163-b224-e4c451cb6202"/>
+				<textFieldExpression><![CDATA[$V{produtoVenda_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="200" y="34" width="100" height="20" uuid="ccf8f84b-c1d2-47ea-9837-57e21499442e"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Produtos Vendidos]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="300" y="55" width="113" height="20" uuid="fae764fa-f191-4f8f-8b61-66b1b10b9e97"/>
+				<textFieldExpression><![CDATA[""+$F{id_pagamento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="35" width="113" height="20" uuid="f5b10cb9-b14a-46a1-bf11-2efff7920af8"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Forma de Pagamento]]></text>
+			</staticText>
+			<textField evaluationTime="Column">
+				<reportElement x="300" y="74" width="113" height="20" uuid="e1bcce89-3820-43d4-96a1-02e402c1d4ce"/>
+				<textFieldExpression><![CDATA[$V{id_pagamento_3}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="08497257-6a80-4656-a997-94d4da0c7575"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="100" y="0" width="100" height="20" uuid="098610c1-47e6-4898-887e-1e12b6679e90"/>
+				<textFieldExpression><![CDATA[""+$F{id_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" uuid="bb2c360b-6703-4537-a935-d0305e3ad31e"/>
+				<textFieldExpression><![CDATA[""+$F{produtoVenda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="113" height="20" uuid="ad2d514f-e215-42ce-b391-8a01eec3ee29"/>
+				<textFieldExpression><![CDATA[""+$F{id_pagamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="68" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="435" y="34" width="80" height="20" uuid="86fc5c39-224a-44d3-9486-921b82510783"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="34" width="40" height="20" uuid="af8e4de2-3068-49b8-b989-2e89362764a3"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
 </jasperReport>

@@ -36,12 +36,14 @@ public class GUIManager {
   private JFrMenuInicial jfMenu = null; 
   
   private DomainManager doManager;
+  private ReportManager repManager;
 
   private static final GUIManager instance = new GUIManager();
 
   private GUIManager() {
       try { 
           doManager = new DomainManager();
+          repManager = new ReportManager();
       } catch (ClassNotFoundException | HibernateException | PSQLException ex) {
           JOptionPane.showMessageDialog(jfMenu, ex);
       }
@@ -66,8 +68,13 @@ public class GUIManager {
     dlg.setLocation(100, 100);
     return dlg;
   }
+  
   public DomainManager getDomainManager() {
     return doManager;       
+  }
+
+  public ReportManager getReportManager() {
+      return repManager;
   }
 
   public void openWindowCaixa() {
