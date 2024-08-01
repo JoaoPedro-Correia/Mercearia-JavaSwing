@@ -5,6 +5,7 @@
 package control;
 
 import dao.ConexaoHibernate;
+import dao.EstoqueDAO;
 import dao.GenericDAO;
 import dao.VendaDAO;
 import java.util.Date;
@@ -20,12 +21,14 @@ import org.postgresql.util.PSQLException;
 public class DomainManager {
     private GenericDAO genDao;
     private VendaDAO venDao;
+    private EstoqueDAO estDAO;
     
     public DomainManager() throws ClassNotFoundException, HibernateException, PSQLException {
         //ConnectionSQLDB.catchConnection();
         ConexaoHibernate.getSessionFactory();
         genDao = new GenericDAO();
         venDao = new VendaDAO();
+        estDAO = new EstoqueDAO();
     }
     
     public List listar(Class classe) throws HibernateException  {
@@ -167,6 +170,14 @@ public class DomainManager {
 
     public List<Estoque> pesquisarEstoque(){
         return genDao.listar(Estoque.class);
+    }
+    
+    public List<Estoque> pesquisarEstoque(String pesq, int tipo) throws HibernateException {    
+        return switch (tipo) {
+            case 0 -> estDAO.pesquisarPorProduto(pesq);
+            case 1 -> estDAO.pesquisarPorFornecedor(pesq);
+            default -> null;
+        };
     }
 
     //-------------Produto Venda---------------

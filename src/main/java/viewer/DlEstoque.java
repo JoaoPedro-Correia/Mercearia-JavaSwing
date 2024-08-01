@@ -7,6 +7,7 @@ package viewer;
 import control.EstoqueAbstractTableModel;
 import control.GUIManager;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.Estoque;
 
 /**
@@ -49,7 +50,8 @@ public class DlEstoque extends javax.swing.JDialog {
         adicionarProduto1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtBusca = new javax.swing.JTextField();
+        cbBusca = new javax.swing.JComboBox<>();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -185,12 +187,14 @@ public class DlEstoque extends javax.swing.JDialog {
             }
         });
 
-        jTextField1.setText("Busca");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtBusca.setText("Busca");
+        txtBusca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtBuscaActionPerformed(evt);
             }
         });
+
+        cbBusca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Produto", "Fornecedor" }));
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -217,11 +221,13 @@ public class DlEstoque extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(adicionarProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1)))
                         .addGap(18, 18, 18)
-                        .addComponent(adicionarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(adicionarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -236,7 +242,8 @@ public class DlEstoque extends javax.swing.JDialog {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField1))
+                            .addComponent(txtBusca)
+                            .addComponent(cbBusca))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(adicionarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -271,12 +278,29 @@ public class DlEstoque extends javax.swing.JDialog {
         GUIManager.getInstance().openWindowProduto();
     }//GEN-LAST:event_adicionarProduto1MouseClicked
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtBuscaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        String textoBusca = txtBusca.getText();
+        String tipoBusca = (String) cbBusca.getSelectedItem();
+        List<Estoque> list;
+        
+        switch (tipoBusca) {
+            case "Todos":
+                list = GUIManager.getInstance().getDomainManager().pesquisarEstoque();
+                break;
+            case "Produto":
+                list = GUIManager.getInstance().getDomainManager().pesquisarEstoque(textoBusca,0);
+                break;
+            case "Fornecedor":
+                list = GUIManager.getInstance().getDomainManager().pesquisarEstoque(textoBusca,1);
+                break;
+            default:
+                throw new AssertionError();
+        }
+        atualizarTabelaEstoque(list);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
@@ -291,54 +315,16 @@ public class DlEstoque extends javax.swing.JDialog {
         List<Estoque> list = GUIManager.getInstance().getDomainManager().pesquisarEstoque();
         estoqueATM.adicionar(list);
     }
-
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DlEstoque dialog = new DlEstoque(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    private void atualizarTabelaEstoque(List<Estoque> list){
+        estoqueATM.setLista(list);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel adicionarCategoria;
     private javax.swing.JPanel adicionarPedido;
     private javax.swing.JPanel adicionarProduto1;
+    private javax.swing.JComboBox<String> cbBusca;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -347,8 +333,8 @@ public class DlEstoque extends javax.swing.JDialog {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel retornarMenuInicial;
     private javax.swing.JTable tabelaEstoque;
+    private javax.swing.JTextField txtBusca;
     // End of variables declaration//GEN-END:variables
 }
