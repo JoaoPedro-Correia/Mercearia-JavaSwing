@@ -302,8 +302,13 @@ public class DlVendas extends javax.swing.JDialog {
         
         if(this.produtoVenda==null){
             ProdutoVenda produtoV = GUIManager.getInstance().getDomainManager().inserirProdutoVenda(quantidade, produto, this.venda);
-            adicionarValorTotal(produtoV);
-            produtoVATM.adicionar(produtoV);
+            if(removerDoEstoque(produtoV.getProdutovenda().getProduto(), quantidade)){
+                adicionarValorTotal(produtoV);
+                produtoVATM.adicionar(produtoV);
+                GUIManager.getInstance().getDomainManager().alterarProduto(produtoV.getProdutovenda().getProduto());
+            }else{
+                JOptionPane.showMessageDialog(this, "Você não produto suficiente no estoque para realizar a venda!");
+            }
         }else{
             GUIManager.getInstance().getDomainManager().alterarProdutoVenda(quantidade, produto, this.venda);
             this.produtoVenda=null;
@@ -345,10 +350,15 @@ public class DlVendas extends javax.swing.JDialog {
         int linha = tabelaVenda.getSelectedRow();
         if(linha>=0){
             this.produtoVenda = produtoVATM.getProdutoVenda(linha);
+            
             GUIManager.getInstance().getDomainManager().removerProdutoVenda(this.produtoVenda);
             produtoVATM.remover(linha);            
             tabelaVenda.setModel(produtoVATM);
+            
             atualizarValorTotal();
+            estornoProdutoDoEstoque(this.produtoVenda.getProdutovenda().getProduto(), this.produtoVenda.getQntd());
+            
+            this.produtoVenda=null;
         }
     }//GEN-LAST:event_excluirActionPerformed
 
@@ -399,14 +409,17 @@ public class DlVendas extends javax.swing.JDialog {
         carregarComboCliente();
     }
     
-    //funcao que remove o produto vendido do estoque
-    //nao estou chamando ela para nao aumentar a complexidade, deixando o uso do sistema mais simples
     private boolean removerDoEstoque(Produto produto, Integer qntd){
         if(qntd<=produto.getQntd()){
             produto.setQntd(produto.getQntd()-qntd);
             return true;
         }
         return false;
+    }
+    
+    private void estornoProdutoDoEstoque(Produto produto, Integer qntd){
+        produto.setQntd(produto.getQntd()+qntd);
+        GUIManager.getInstance().getDomainManager().alterarProduto(produto);
     }
     
     private void adicionarValorTotal(ProdutoVenda proV){

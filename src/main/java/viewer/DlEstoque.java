@@ -258,18 +258,15 @@ public class DlEstoque extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void retornarMenuInicialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_retornarMenuInicialMouseClicked
-        // TODO add your handling code here:
         GUIManager.getInstance().openWindowStartMenu();
         this.setVisible(false);
     }//GEN-LAST:event_retornarMenuInicialMouseClicked
 
     private void adicionarCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarCategoriaMouseClicked
-        // TODO add your handling code here:
         GUIManager.getInstance().openWindowCategoria();
     }//GEN-LAST:event_adicionarCategoriaMouseClicked
 
     private void adicionarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarPedidoMouseClicked
-        // TODO add your handling code here:
         GUIManager.getInstance().openWindowPedido();
     }//GEN-LAST:event_adicionarPedidoMouseClicked
 

@@ -90,9 +90,10 @@ public class Cliente implements Serializable {
         this.contato = contato;
     }
 
-    public Cliente(String nome, String email) {
+    public Cliente(String nome, String email, char sexo) {
         this.nome = nome;
         this.email = email;
+        this.sexo = sexo;
     }
 
     

@@ -289,7 +289,7 @@ public class JFrMenuInicial extends javax.swing.JFrame {
         try{
             List<String> mestre = GUIManager.getInstance().getDomainManager().minhaQuery("FROM Cliente WHERE NOME='Sem Cadastro'");
             if(mestre.isEmpty()){
-                 //this.semCadastro = GUIManager.getInstance().getDomainManager().inserirCliente("Sem Cadastro", "e@e");
+                 this.semCadastro = GUIManager.getInstance().getDomainManager().inserirCliente("Sem Cadastro", "e@e", 'O');
             }
         }catch(QuerySyntaxException ex){
             JOptionPane.showMessageDialog(this, "Erro de Querry: "+ex);

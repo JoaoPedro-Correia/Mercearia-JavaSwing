@@ -42,8 +42,8 @@ public class DomainManager {
         return cliente;
     }
     
-    public Cliente inserirCliente(String nome, String email){
-        Cliente cliente = new Cliente(nome, email);
+    public Cliente inserirCliente(String nome, String email, char sexo){
+        Cliente cliente = new Cliente(nome, email, sexo);
         genDao.inserir(cliente);
         return cliente;
     }
