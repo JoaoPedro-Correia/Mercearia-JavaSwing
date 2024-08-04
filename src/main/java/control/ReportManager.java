@@ -26,7 +26,7 @@ public class ReportManager {
     public void relComConexao() {
         try {
             // PASSO 1 - Caminho do relatório
-            InputStream rel = getClass().getResourceAsStream("../relatorios/Vendas.jasper");
+            InputStream rel = getClass().getResourceAsStream("../relatorio/Vendas.jasper");
             // PASSO 2 - Criar parâmetros de Pesquisa 
             Map parametros = new HashMap();
             
@@ -66,7 +66,7 @@ public class ReportManager {
     public void relComLista(List lista, String nome ) {
         try {
             // PASSO 1 - Caminho do relatório
-            InputStream rel = getClass().getResourceAsStream("../relatorios/" + nome);
+            InputStream rel = getClass().getResourceAsStream("../relatorio/" + nome);
 
             // COMPILAR
             // JasperReport rel = JasperCompileManager.compileReport(relArq);

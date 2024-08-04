@@ -7,13 +7,17 @@ package viewer;
 import control.FuncoesUteis;
 import control.GUIManager;
 import control.ProdutoAbstractTableModel;
+import java.awt.Component;
 import java.awt.Image;
 import java.io.File;
 import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.TableCellRenderer;
 import model.Categoria;
 import model.Produto;
 
@@ -31,10 +35,23 @@ public class DlProduto extends javax.swing.JDialog {
         super(parent, modal);
         this.setSize(448, 381);
         this.setResizable(false);
-        initComponents();
-        
+        initComponents();        
         produtoATM = new ProdutoAbstractTableModel();
         tabelaProd.setModel(produtoATM);
+        
+        tabelaProd.getColumnModel().getColumn(0).setCellRenderer( 
+            new TableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
+                    // OBJETO FINAL
+                    JLabel label = new JLabel();
+                    if ( o != null)
+                        label.setIcon( new ImageIcon( (byte[]) o) );
+                    return label;
+                }
+            } 
+        );
+
         carregarDados();
     }
 

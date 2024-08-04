@@ -6,8 +6,13 @@ package viewer;
 
 import control.EstoqueAbstractTableModel;
 import control.GUIManager;
+import java.awt.Component;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
 import model.Estoque;
 
 /**
@@ -28,6 +33,19 @@ public class DlEstoque extends javax.swing.JDialog {
         
         estoqueATM = new EstoqueAbstractTableModel();
         tabelaEstoque.setModel(estoqueATM);
+        
+        tabelaEstoque.getColumnModel().getColumn(0).setCellRenderer( 
+            new TableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
+                    // OBJETO FINAL
+                    JLabel label = new JLabel();
+                    if ( o != null)
+                        label.setIcon( new ImageIcon( (byte[]) o) );
+                    return label;
+                }
+            } 
+        );
         carregarDados();
     }
 
