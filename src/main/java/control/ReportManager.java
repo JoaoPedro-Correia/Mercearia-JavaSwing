@@ -26,7 +26,7 @@ public class ReportManager {
     public void relComConexao() {
         try {
             // PASSO 1 - Caminho do relatório
-            InputStream rel = getClass().getResourceAsStream("../relatorio/Vendas.jasper");
+            InputStream rel = getClass().getResourceAsStream("../relatorio/Venda.jasper");
             // PASSO 2 - Criar parâmetros de Pesquisa 
             Map parametros = new HashMap();
             
@@ -47,13 +47,13 @@ public class ReportManager {
                 JasperViewer jrViewer = new JasperViewer(print, true);
                 jrViewer.setVisible(true);           
                 // Criar uma janela MODAL e colocar o JasperView dentro dela
-            /*    
+               
                 JDialog viewer = new JDialog(new javax.swing.JFrame(),"Visualização do Relatório", true);
                 viewer.setSize(800,600);
                 viewer.setLocationRelativeTo(null);
                 viewer.getContentPane().add(jrViewer.getContentPane());
                 viewer.setVisible(true);
-              */
+             
             } else {
                 JOptionPane.showMessageDialog(null, "Relatório de clientes vazio.");
             }   
@@ -88,6 +88,7 @@ public class ReportManager {
                
                 JDialog viewer = new JDialog(new javax.swing.JFrame(),"Visualização do Relatório", true);
                 viewer.setSize(800,600);
+                viewer.setResizable(false);
                 viewer.setLocationRelativeTo(null);
                 viewer.getContentPane().add(jrViewer.getContentPane());
                 viewer.setVisible(true);
