@@ -231,7 +231,7 @@ public class JFrMenuInicial extends javax.swing.JFrame {
         });
 
         relatorioVendas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons8-report-50.png"))); // NOI18N
-        relatorioVendas1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        relatorioVendas1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -257,7 +257,7 @@ public class JFrMenuInicial extends javax.swing.JFrame {
         });
 
         relatorioVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons8-report-50.png"))); // NOI18N
-        relatorioVendas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        relatorioVendas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         relatorioVendas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 relatorioVendasMouseClicked(evt);

@@ -97,7 +97,7 @@ public class ReportManager {
             }   
         }
         catch(JRException erro){
-            JOptionPane.showMessageDialog(null, "ERRO ao abrir relatório de clientes. " + erro.getMessage() );       
+            JOptionPane.showMessageDialog(null, "ERRO ao abrir relatório de "+ nome+" " + erro.getMessage() );       
         }   
     }
 }
