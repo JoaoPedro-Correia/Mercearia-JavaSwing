@@ -1,7 +1,5 @@
 # Sistema de Desktop para Mercearia
 
-Bem-vindo ao repositório do Sistema de Desktop para Mercearia. Este software foi desenvolvido para ajudar na gestão eficiente de mercearias, permitindo o controle de estoque, vendas e fornecedores.
-
 ## Funcionalidades
 
 - **Controle de Estoque**: Adicione, remova e gerencie produtos no estoque.
