@@ -12,7 +12,7 @@ Bem-vindo ao repositório do Sistema de Desktop para Mercearia. Este software fo
 ## Requisitos
 
 - **Sistema Operacional**: Windows, macOS ou Linux.
-- **Dependências**: [Hibernate, Postgresql]
+- **Dependências**: [Hibernate, Postgresql, JDK 17, Java Swing]
 
 ## Instalação
 
