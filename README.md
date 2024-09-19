@@ -14,7 +14,7 @@
 - **Dependências**: [Hibernate, Postgresql, JDK 17, Java Swing]
 
 ## Clone o repositório
-
+1.
    ```bash
    git clone https://github.com/seuusuario/seurepositorio.git
 
