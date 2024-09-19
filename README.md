@@ -6,17 +6,15 @@
 - **Gestão de Vendas**: Realize vendas, registre transações e gere relatórios.
 - **Cadastro de Fornecedores**: Mantenha informações atualizadas sobre seus fornecedores.
 - **Relatórios e Análises**: Gere relatórios simples sobre vendas e estoque.
+- **Controle de Caixa**: Gerencie seu caixa, matenha ele atualizado de forma automática e compare sua diferença no final do dia.
 
 ## Requisitos
 
 - **Sistema Operacional**: Windows, macOS ou Linux.
 - **Dependências**: [Hibernate, Postgresql, JDK 17, Java Swing]
 
-## Instalação
+## Clone o repositório
 
-Para instalar o sistema, siga estas etapas:
-
-1. Clone o repositório:
    ```bash
    git clone https://github.com/seuusuario/seurepositorio.git
 
